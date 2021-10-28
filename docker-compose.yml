@@ -1,18 +1,20 @@
-services:
-   backend:
-      image: "node:14.18.1-alpine3.14"
-      ports:
-         - "8080:8080"
-      working_dir: /home/backend/app
-      volumes:
-         - ./:/home/backend/app
-      command: "node ./backend/src/app.js"
+version: '3'
 
-   frontend:
-      image: "node:14.18.1-alpine3.14"
-      ports:
-         - "3000:3000"
-      working_dir: /home/frontend
-      volumes:
-         - ./:/home/frontend/app
-      command: "./backend/src/App.js"
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    image: "node:14.18.1-alpine3.14"
+    ports:
+      - "8080:8080"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    image: "node:14.18.1-alpine3.14"
+    ports:
+      - "3000:3000"
+    links:
+      - "backend:be"
+
