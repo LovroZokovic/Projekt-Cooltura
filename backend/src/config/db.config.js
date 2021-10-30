@@ -1,10 +1,10 @@
 module.exports = {
-    HOST: "localhost",
-    USER: "postgres",
-    PORT: 5432,
-    PASSWORD: "bazapodataka",
-    DB: "testdb",
-    dialect: "postgres",
+    HOST: process.env.DB_HOST ,
+    USER: process.env.DB_USER,
+    PORT: process.env.DB_PORT,
+    PASSWORD: process.env.DB_PASSWORD,
+    DB: process.env.DB_DB,
+    dialect: process.env.DB_DIALECT,
     pool: {
       max: 5,
       min: 0,
