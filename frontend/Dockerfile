@@ -1,10 +1,8 @@
 FROM node:14.18.1-alpine3.14
 
 COPY ["package.json", "package-lock.json", "./"]
-RUN ls
 RUN npm ci
 COPY . .
 CMD ["npm", "run", "start"]
 
-EXPOSE 3000
-
+EXPOSE 8080
