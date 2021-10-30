@@ -19,11 +19,28 @@ exports.findAll = (req, res) => {
             err.message || "Some error occurred while retrieving tutorials."
         });
       });
+      //res.json({ message:'All events'});
 };
 
 // Find a single Event with an id
 exports.findOne = (req, res) => {
-  
+  const id = 4;
+
+  Event.findByPk(id)
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Tutorial with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Tutorial with id=" + id
+      });
+    });
 };
 
 // Update a Event by the id in the request
