@@ -1,13 +1,27 @@
 version: '3'
 
 services:
+  db:
+    container_name: cooltura_db
+    env_file: ./backend/src/.env
+    image: postgres
+    restart: always
+    volumes:
+      - "cooltura_db_volume:/var/lib/postgresql/data"
+
   backend:
+    container_name: cooltura_backend
+    env_file: ./backend/src/.env
     build:
       context: ./backend
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
+    depends_on:
+      - db
+
   frontend:
+    container_name: cooltura_frontend
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
@@ -16,3 +30,5 @@ services:
     depends_on:
       - backend
 
+volumes:
+  cooltura_db_volume:

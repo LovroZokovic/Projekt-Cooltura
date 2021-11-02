@@ -5,7 +5,7 @@
   "description": "Project directory for backend development",
   "main": "app.js",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "node ./src/app.js"
   },
   "repository": {
     "type": "git",

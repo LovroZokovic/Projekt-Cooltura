@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require('dotenv');
 dotenv.config();
+console.log(process.env);
 //Create an app
 const app = express();
 
