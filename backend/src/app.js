@@ -2,8 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require('dotenv');
+const session = require('express-session'); // express-sessions
+const { v4: uuidv4 } = require('uuid'); // uuid, To call: uuidv4();
 dotenv.config();
-console.log(process.env);
+//console.log(process.env);
 //Create an app
 const app = express();
 
@@ -12,7 +14,17 @@ var corsOptions = {
 };
   
 app.use(cors(corsOptions));
-  
+app.set('trust proxy', 1); 
+app.use(session({
+  genid: function (req) {
+	return uuidv4();
+  },
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 24* 60 * 60 * 1000, secure: true } // 1 day
+}));
+
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
   

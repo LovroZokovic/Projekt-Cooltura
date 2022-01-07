@@ -12,14 +12,14 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Tutorial
+  // Create an Event
   const event = {
     title: req.body.title,
     description: req.body.description,
     interest: 0
   };
 
-  // Save Tutorial in the database
+  // Save Event in the database
   Event.create(event)
     .then(data => {
       res.send(data);
@@ -44,7 +44,7 @@ exports.findAll = (req, res) => {
             err.message || "Some error occurred while retrieving tutorials."
         });
       });
-      //res.json({ message:'All events'});
+      res.json({ message:'All events'});
 };
 
 // Find a single Event with an id
