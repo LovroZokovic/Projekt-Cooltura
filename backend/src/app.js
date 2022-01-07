@@ -4,6 +4,8 @@ const cors = require("cors");
 const dotenv = require('dotenv');
 const session = require('express-session'); // express-sessions
 const { v4: uuidv4 } = require('uuid'); // uuid, To call: uuidv4();
+const passport = require('passport');  // authentication
+const connectEnsureLogin = require('connect-ensure-login'); //authorization
 dotenv.config();
 //console.log(process.env);
 //Create an app
@@ -46,3 +48,13 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport Local Strategy
+passport.use(User.createStrategy());
+
+// To use with sessions
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
