@@ -34,13 +34,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models");
-db.sequelize.sync();
+db.sequelize.sync({force: true}).then(() => {
+  //console.log('Drop and Resync Db');
+  initial();
+});
   
 app.get('/', (req, res) => {
     res.json({ message:'Hello world\n'});
 });
 
 require("./routes/event.routes")(app);
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.APP_PORT;
@@ -58,3 +63,20 @@ passport.use(User.createStrategy());
 // To use with sessions
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
+  });
+ 
+  Role.create({
+    id: 2,
+    name: "organiser"
+  });
+ 
+  Role.create({
+    id: 3,
+    name: "admin"
+  });
+}
