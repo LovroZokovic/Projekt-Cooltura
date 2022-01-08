@@ -2,9 +2,9 @@ const db = require("../models");
 const User = db.users;
 const Op = db.Sequelize.Op;
 
-app.get('/login', (req, res) => {
+exports.create = (req, res) => {
     res.sendFile(__dirname + '/static/login.html'); //promijeniti za React
-  });
+  };
 
 app.get('/dashboard', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.send(`Hello ${req.user.username}. Your session ID is ${req.sessionID} 
@@ -14,10 +14,10 @@ app.get('/dashboard', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
    `);
 });
 
-app.get('/logout', function(req, res) {
+exports.logout = (req, res) => {
     req.logout();
     res.redirect('/login');
-  });
+  };
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),  function(req, res) {
 	console.log(req.user)
