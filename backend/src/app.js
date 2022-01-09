@@ -44,8 +44,8 @@ app.get('/', (req, res) => {
 });
 
 require("./routes/event.routes")(app);
-require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.APP_PORT;
@@ -57,12 +57,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Passport Local Strategy
+/* Passport Local Strategy
 passport.use(User.createStrategy());
 
 // To use with sessions
 passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser()); */
 
 function initial() {
   Role.create({

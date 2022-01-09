@@ -19,8 +19,8 @@ module.exports = function(app) {
   );
 
   app.get(
-    "/api/test/org",
-    [authJwt.verifyToken, authJwt.isOrgansier],
+    "/api/test/organiser",
+    [authJwt.verifyToken, authJwt.isOrganiser],
     controller.organiserBoard
   );
 
