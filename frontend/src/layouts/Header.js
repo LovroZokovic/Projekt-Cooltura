@@ -33,6 +33,7 @@ const Header = () => {
     <Navbar color="primary" dark expand="md" className="fix-header">
       <div className="d-flex align-items-center">
         <div className="d-lg-block d-none me-5 pe-3">
+          <Logo />
         </div>
         <NavbarBrand href="/">
           <LogoWhite className=" d-lg-none" />
@@ -63,8 +64,8 @@ const Header = () => {
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
           <NavItem>
-            <Link to="/home" className="nav-link">
-              Home
+            <Link to="/starter" className="nav-link">
+              Starter
             </Link>
           </NavItem>
           <NavItem>
