@@ -7,13 +7,13 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       name: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       surname: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       }
     });
   
