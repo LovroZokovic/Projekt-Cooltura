@@ -6,6 +6,7 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 /***** Pages ****/
 
+const AddEvent = lazy(() => import("../views/ui/AddEvent.js"));
 const Events = lazy(() => import("../views/ui/Events.js"));
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
@@ -28,7 +29,8 @@ const ThemeRoutes = [
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/starter" /> },
-      { path: "/events", exact: true, element: <Events /> },
+      { path: "/event", exact: true, element: <Events /> },
+      { path: "/addEvent", exact: true, element: <AddEvent /> },
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },
