@@ -5,6 +5,11 @@ import probg from "../assets/images/bg/download.jpg";
 
 const navigation = [
   {
+    title: "Events",
+    href: "/events",
+    icon: "bi bi-calendar4-event",
+  },
+  {
     title: "Dashboard",
     href: "/starter",
     icon: "bi bi-speedometer2",
