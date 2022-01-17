@@ -20,6 +20,8 @@ const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const Login = lazy(() => import("../views/ui/Login"));
 const Registration = lazy(() => import("../views/ui/Registration"));
+const Profile = lazy(() => import("../views/ui/Profile"));
+
 
 /*****Routes******/
 
@@ -43,6 +45,7 @@ const ThemeRoutes = [
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
       { path: "/login", exact: true, element: <Login /> },
       { path: "/registration", exact: true, element: <Registration /> },
+      { path: "/profile", exact: true, element: <Profile /> },
     ],
   },
 ];
