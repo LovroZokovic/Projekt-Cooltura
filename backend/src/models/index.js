@@ -1,17 +1,12 @@
 const dbConfig = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: 0,
-
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  },
+const sequelize = new Sequelize(dbConfig.POSTGRES_DB, dbConfig.POSTGRES_USER, dbConfig.POSTGRES_PASSWORD, {
+  host: dbConfig.DB_HOST,
+  operatorsAliases: false,
+  port: dbConfig.DB_PORT,
+  dialect: 'postgres',
+  
 });
 
 const db = {};
@@ -19,14 +14,14 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.events = require("./event.model.js")(sequelize, Sequelize);
-db.users = require("./user.model.js")(sequelize, Sequelize);
-db.role = require("./role.model.js")(sequelize, Sequelize);
-db.role = require("./session.model.js")(sequelize, Sequelize);
+db.events = require("./event.model.js")(db.sequelize, db.Sequelize);
+db.users = require("./user.model.js")(db.sequelize, db.Sequelize);
+db.role = require("./role.model.js")(db.sequelize, db.Sequelize);
+db.session = require("./session.model.js")(db.sequelize, db.Sequelize);
 
-db.ROLES = ["user", "admin", "organiser"];
+//db.ROLES = ["user", "admin", "organiser"];
 
 module.exports = db;
-
+module.exports = Sequelize;
 
 

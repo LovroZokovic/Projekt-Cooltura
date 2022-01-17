@@ -1,12 +1,12 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize, Sequelize) {
     return sequelize.define('session', {
       id: {
-        type: DataTypes.UUIDV4,
+        type: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true
       },
       user_id: {
-        type: DataTypes.UUIDV4,
+        type: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true
       }
