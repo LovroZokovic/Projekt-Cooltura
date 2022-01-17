@@ -1,32 +1,32 @@
-const { authJwt } = require("../middleware");
-const controller = require("../controllers/user.controller");
+var express = require("express");
+var router = express.Router();
+const userBL = require("./../bl/user");
+const sessionBL = require("./../bl/session");
+const Auth = require("../util/authenticate");
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
+router.post("/login", async function(req, res, next) {
+  const userName = req.body.username;
+  const password = req.body.password;
 
-  app.get("/api/test/all", controller.allAccess);
+  try {
+    const sessionInfo = await userBL.Login(userName, password);
 
-  app.get(
-    "/api/test/user",
-    [authJwt.verifyToken],
-    controller.userBoard
-  );
+    res.json(sessionInfo);
+  } catch (e) {
+    res.status(401).json(e.toString());
+  }
+});
 
-  app.get(
-    "/api/test/organiser",
-    [authJwt.verifyToken, authJwt.isOrganiser],
-    controller.organiserBoard
-  );
+router.get("/logout", Auth.isAuthenticated, async function(req, res, next) {
+  const sessionId = req.session.id;
 
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
-};
+  try {
+    await sessionBL.Remove(sessionId);
+
+    res.json({ logout: true });
+  } catch (e) {
+    res.status(401).json(e.toString());
+  }
+});
+
+module.exports = router;

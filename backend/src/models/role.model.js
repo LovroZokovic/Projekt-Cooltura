@@ -7,7 +7,13 @@ module.exports = (sequelize, Sequelize) => {
       name: {
         type: Sequelize.STRING
       }
-    });
+    }, 
+      
+      { timestamps: false,
+        createdAt: false,
+        updatedAt: false,
+      }
+    );
   
     return Role;
   };

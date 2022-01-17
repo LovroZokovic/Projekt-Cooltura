@@ -1,6 +1,9 @@
+const { Router } = require("express");
 const db = require("../models");
 const Event = db.events;
 const Op = db.Sequelize.Op;
+var router = require("express").Router();
+const all_routes = require('express-list-endpoints');
 
 // Create and Save a new Event
 exports.create = (req, res) => {
@@ -44,7 +47,8 @@ exports.findAll = (req, res) => {
             err.message || "Some error occurred while retrieving tutorials."
         });
       });
-      res.json({ message:'All events'});
+      res.json({ message: router.stack});
+      
 };
 
 // Find a single Event with an id

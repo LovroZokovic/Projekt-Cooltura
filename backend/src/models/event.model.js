@@ -9,7 +9,13 @@ module.exports = (sequelize, Sequelize) => {
       interested: {
         type: Sequelize.INTEGER
       }
-    });
+    }, 
+      
+    { timestamps: false,
+      createdAt: false,
+      updatedAt: false,
+    }
+    );
   
     return Event;
   };
