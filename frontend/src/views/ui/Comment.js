@@ -1,5 +1,7 @@
 import {Button, Card, CardBody, CardTitle, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import React from "react";
+import RatingStars from "../../components/dashboard/RatingStars";
+import {Link} from "react-router-dom";
 
 const Comment = () => {
     return(
@@ -16,11 +18,15 @@ const Comment = () => {
                     <CardBody>
                         <Form>
                             <FormGroup>
+                                <Label for="comment">Rate</Label>
+                                <RatingStars />
+                            </FormGroup>
+                            <FormGroup>
                                 <Label for="comment">Comment</Label>
                                 <Input id="comment" name="comment" type="textarea" />
                             </FormGroup>
                             <Button style={{marginRight:"0.5rem"}}>Add</Button>
-                            <Button>Cancel</Button>
+                            <Link to="/passedEvents" className="btn btn-secondary">Cancel</Link>
                         </Form>
                     </CardBody>
                 </Card>

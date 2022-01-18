@@ -2,9 +2,9 @@ import {Row, Col} from "reactstrap"
 import e1 from "../../assets/images/bg/zg_kaz.jpg";
 import e2 from "../../assets/images/bg/zg_muzej_iluzija.jpg";
 import e3 from "../../assets/images/bg/zg_muzej_mimara.jpg";
-import Passed from "../../components/dashboard/Passed";
+import Future from "../../components/dashboard/Future";
 
-const Data = [
+const FutData = [
     {
         image: e1,
         title: "Zagreb Theater Hamlet Drama",
@@ -22,18 +22,18 @@ const Data = [
     },
 ];
 
-function getPassedEvents(){
-    return Data;
+function getFutureEvents(){
+    return FutData;
 }
 
-const PassedEvents = () => {
+const FutureEvents = () => {
     return (
         <div>
             {/***Blog Cards***/}
             <Row>
-                {getPassedEvents().map((event, index) => (
+                {getFutureEvents().map((event, index) => (
                     <Col sm="6" lg="6" xl="3" key={index}>
-                        <Passed
+                        <Future
 
                             image={event.image}
                             title={event.title}
@@ -46,4 +46,4 @@ const PassedEvents = () => {
     );
 }
 
-export default PassedEvents;
+export default FutureEvents;

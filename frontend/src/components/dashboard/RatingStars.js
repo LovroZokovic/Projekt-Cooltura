@@ -23,6 +23,7 @@ const RatingStars = () => {
                             color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
                             onMouseEnter={() => setHover(ratingValue)}
                             onMouseLeave={() => setHover(null)}
+                            size={50}
                         />
                     </label>
                 );

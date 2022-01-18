@@ -10,6 +10,7 @@ const Comment = lazy(() => import("../views/ui/Comment.js"));
 const AddEvent = lazy(() => import("../views/ui/AddEvent.js"));
 const Events = lazy(() => import("../views/ui/Events.js"));
 const PassedEvents = lazy(() => import("../views/ui/PassedEvents.js"));
+const FutureEvents = lazy(() => import("../views/ui/FutureEvents.js"));
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
 const Alerts = lazy(() => import("../views/ui/Alerts"));
@@ -37,6 +38,7 @@ const ThemeRoutes = [
       { path: "/passedEvents", exact: true, element: <PassedEvents /> },
       { path: "/addEvent", exact: true, element: <AddEvent /> },
       { path: "/comment", exact: true, element: <Comment /> },
+      { path: "/futureEvents", exact: true, element: <FutureEvents /> },
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },
