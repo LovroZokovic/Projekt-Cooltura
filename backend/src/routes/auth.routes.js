@@ -1,23 +1,20 @@
-const { verifySignUp } = require("../middleware");
-const controller = require("../controllers/auth.controller");
+module.exports = app => {
+    const auths = require("../controllers/auth.controller.js");
+    const {_, auth} = require('../middlewares/auth.middleware');
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
+    var router = require("express").Router();
 
-  app.post(
-    "/api/auth/signup",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted
-    ],
-    controller.signup
-  );
+    router.post("/signup", auths.signup);
 
-  app.post("/api/auth/signin", controller.signin);
+    router.post("/login", auths.login);
+
+    router.get("/login", auths.login_page);
+
+    router.get("/signup", auths.signup_page);
+
+    router.post("/changepassword", auth, auths.changepassword);
+
+    router.post("/verifypassword", auth, auths.verifypassword);
+
+    app.use('/api/auths', router);
 };

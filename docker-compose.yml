@@ -8,6 +8,8 @@ services:
     restart: always
     volumes:
       - "cooltura_db_volume:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
 
   backend:
     container_name: cooltura_backend
@@ -16,9 +18,12 @@ services:
       context: ./backend
       dockerfile: ./Dockerfile
     ports:
-      - "8080:8080"
+      - "2080:2080"
     depends_on:
       - db
+    volumes:
+      - ./backend/src/:/src
+
 
   frontend:
     container_name: cooltura_frontend

@@ -9,7 +9,6 @@ module.exports = app => {
     // Retrieve all Events
     router.get("/", events.findAll);
 
-  
     // Retrieve a single Event with id
     router.get("/:id", events.findOne);
   

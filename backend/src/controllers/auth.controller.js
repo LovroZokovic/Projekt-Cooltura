@@ -1,87 +1,155 @@
 const db = require("../models");
-const config = require("../config/auth.config");
 const User = db.users;
-const Role = db.roles;
-
 const Op = db.Sequelize.Op;
+const where = db.Sequelize.where;
+const jwt = require('jsonwebtoken');
+const { secret } = require('../config/jwt.config');
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+async function findUserByUsername(username) {
+    try {
+        users = await User.findAll({ where: {username: username} })
+        return (users instanceof Array) ? users[0] : null;
+    }
+    catch (ex) {
+        throw ex;
+    }
+}
+
+async function findUserByEamil(email) {
+    try {
+        users = await User.findAll({ where: {email: email} })
+        return (users instanceof Array) ? users[0] : null;
+    }
+    catch (ex) {
+        throw ex;
+    }
+}
+
 
 exports.signup = (req, res) => {
-  // Save User to Database
-  User.create({
-    username: req.body.username,
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
-  })
-    .then(user => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles
-            }
-          }
-        }).then(roles => {
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
-          });
+    console.log(req.body)
+    if(!req.body.username, !req.body.email, !req.body.password) {
+        res.status(400).send({
+            message: 'Please provide all the fields.'
         });
-      } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
-        });
-      }
+        return;
+    }
+
+    // Create the User Record
+    const newUser = {
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    User.create(newUser)
+    .then(data => {
+      res.send({
+          message: "Signup Successful!"
+      });
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while signing you up.",
+        errObj: err
+      });
     });
-};
+}
 
-exports.signin = (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username
+exports.login = async (req, res) => {
+    console.log(req.body)
+
+    if ((!req.body.username && !req.body.email) || (!req.body.password)) {
+        res.status(400).send({
+            message: 'Please provide username/email and password.'
+        });
     }
-  })
-    .then(user => {
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
-      }
-
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
-
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!"
+    user = null;
+    if(req.body.username) {
+        user = await findUserByUsername(req.body.username);
+    } else if (req.body.email) {
+        user = await findUserByEamil(req.body.email);
+    }
+    if(user == null || !(user instanceof User)) {
+        res.status(403).send({
+            message: "Invalid Credentials!"
         });
-      }
-
-      var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400 // 24 hours
-      });
-
-      var authorities = [];
-      user.getRoles().then(roles => {
-        for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
+    } else {
+        if(user.verifyPassword(req.body.password)) {
+            res.status(200).send({
+                message: "Login Successful",
+                token: jwt.sign({ username: user.username, email: user.email }, secret)
+            })
+        } else {
+            res.status(403).send({
+                message: "Invalid Credentails!"
+            });
         }
-        res.status(200).send({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          roles: authorities,
-          accessToken: token
+    }
+}
+
+exports.changepassword = async (req, res) => {
+    console.log(req.body)
+
+    if (!req.body.oldpassword || !req.body.newpassword) {
+        res.status(400).send({
+            message: 'Please provide both old and new password.'
         });
-      });
-    })
-    .catch(err => res.status(500).send({ message: err.message }));
-};
+    }
+    user = await findUserByUsername(req.user.username);
+    if(user == null || !(user instanceof User)) {
+        res.status(403).send({
+            message: "Invalid Credentials!"
+        });
+    } else {
+        if(user.verifyPassword(req.body.oldpassword)) {
+            user.update({password: req.body.newpassword}, {
+                where: {id: user.id}
+            });
+            res.status(200).send({
+                message: "Password Updated Successfully!"
+            })
+        } else {
+            res.status(403).send({
+                message: "Invalid Old Password! Please recheck."
+            });
+        }
+    }
+}
+
+exports.verifypassword = async (req, res) => {
+    console.log(req.body)
+
+    if (!req.body.password) {
+        res.status(400).send({
+            message: 'Please provide your password to re-authenticate.'
+        });
+    }
+    user = await findUserByUsername(req.user.username);
+    if(user == null || !(user instanceof User)) {
+        res.status(403).send({
+            message: "Invalid Credentials!"
+        });
+    } else {
+        if(user.verifyPassword(req.body.password)) {
+            res.status(200).send({
+                message: "Password Verification Successful!"
+            })
+        } else {
+            res.status(403).send({
+                message: "Invalid Password! Please recheck."
+            });
+        }
+    }
+}
+
+exports.login_page = (req, res) => {
+    res.json({ message:'Login page\n'});
+}
+
+exports.signup_page = (req, res) => {
+    res.json({ message:'Signup page\n'});
+}
+
+module.exports = exports;
