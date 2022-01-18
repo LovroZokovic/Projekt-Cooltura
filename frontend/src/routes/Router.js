@@ -6,6 +6,7 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 /***** Pages ****/
 
+const AddEvent = lazy(() => import("../views/ui/AddEvent.js"));
 const Events = lazy(() => import("../views/ui/Events.js"));
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
@@ -17,6 +18,10 @@ const Grid = lazy(() => import("../views/ui/Grid"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Forms = lazy(() => import("../views/ui/Forms"));
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
+const Login = lazy(() => import("../views/ui/Login"));
+const Registration = lazy(() => import("../views/ui/Registration"));
+const Profile = lazy(() => import("../views/ui/Profile"));
+
 
 /*****Routes******/
 
@@ -26,7 +31,8 @@ const ThemeRoutes = [
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/starter" /> },
-      { path: "/events", exact: true, element: <Events /> },
+      { path: "/event", exact: true, element: <Events /> },
+      { path: "/addEvent", exact: true, element: <AddEvent /> },
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },
@@ -37,6 +43,9 @@ const ThemeRoutes = [
       { path: "/table", exact: true, element: <Tables /> },
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+      { path: "/login", exact: true, element: <Login /> },
+      { path: "/registration", exact: true, element: <Registration /> },
+      { path: "/profile", exact: true, element: <Profile /> },
     ],
   },
 ];
