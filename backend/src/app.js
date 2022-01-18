@@ -7,9 +7,19 @@ const flash = require('connect-flash')
 const session = require('express-session');
 dotenv.config();
 const {logger, } = require('./middlewares/auth.middleware');
+const path = require('path');
+const pg = require('pg');
+const pgSession = require('connect-pg-simple')(session);
 
 
 const app = express();
+
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+
+app.use(express.static(path.join(__dirname, 'public')))
+
 const PORT = process.env.APP_PORT
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
@@ -51,7 +61,7 @@ db.sequelize.sync();
 app.use(
   session({
     // Key we want to keep secret which will encrypt all of our information
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SECRET,
     // Should we resave our session variables if nothing has changes which we dont
     resave: false,
     // Save empty value if there is no vaue which we do not want to do
