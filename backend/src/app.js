@@ -30,20 +30,23 @@ app.use(function(req, res, next) {
 
 
 const db = require("./models");
-  
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});;
+
 app.get('/', (req, res) => {
     res.json({ message:'Hello world\n'});
 });
 
-app.use(require('./routes/auth.routes.js'));
-app.use(require('./routes/event.routes.js'));
+require('./routes/auth.routes.js')(app);
+require('./routes/event.routes.js')(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 
 // Prepare DB
-db.connection.sync();
+db.sequelize.sync();
 
 app.use(
   session({
@@ -63,4 +66,8 @@ app.use(flash());
 app.use(function(req, res, next){
   res.locals.message = req.flash('message');
   next();
+});
+
+app.use(function (req, res) {
+  res.status(404).end('error 404');
 });

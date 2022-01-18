@@ -1,16 +1,20 @@
 module.exports = app => {
-    const users = require("../controllers/auth.controller.js");
-    const {_, auth} = require('../middlewares');
+    const auths = require("../controllers/auth.controller.js");
+    const {_, auth} = require('../middlewares/auth.middleware');
 
     var router = require("express").Router();
 
-    router.post("/signup", users.signup);
+    router.post("/signup", auths.signup);
 
-    router.post("/login", users.login);
+    router.post("/login", auths.login);
 
-    router.post("/changepassword", auth, users.changepassword);
+    router.get("/login", auths.login_page);
 
-    router.post("/verifypassword", auth, users.verifypassword);
+    router.get("/signup", auths.signup_page);
 
-    app.use('/auth', router);
+    router.post("/changepassword", auth, auths.changepassword);
+
+    router.post("/verifypassword", auth, auths.verifypassword);
+
+    app.use('/api/auths', router);
 };
