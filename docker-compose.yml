@@ -3,10 +3,7 @@ version: '3'
 services:
   db:
     container_name: cooltura_db
-    environment:
-        POSTGRES_USER: postgres
-        POSTGRES_DB: cooltura
-        POSTGRES_PASSWORD: bazapodataka
+    env_file: ./backend/src/.env
     image: postgres
     restart: always
     volumes:
