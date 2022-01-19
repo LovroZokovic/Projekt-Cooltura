@@ -75,7 +75,7 @@ const AddEvent = () => {
                                   }}
                               />
                           </FormGroup>
-                          <Button>Add</Button>
+                          <Button style={{marginRight: "0.5rem"}}>Add</Button>
                           <Button>Cancel</Button>
                       </Form>
                   </CardBody>

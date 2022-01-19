@@ -14,6 +14,16 @@ const navigation = [
     icon: "bi bi-calendar4-event",
   },
   {
+    title: "MyPassedEvents",
+    href: "/passedEvents",
+    icon: "bi bi-clock-history",
+  },
+  {
+    title: "MyFutureEvents",
+    href: "/futureEvents",
+    icon: "bi bi-chevron-double-right",
+  },
+  {
     title: "AddEvent",
     href: "/addEvent",
     icon: "bi bi-plus-lg",
