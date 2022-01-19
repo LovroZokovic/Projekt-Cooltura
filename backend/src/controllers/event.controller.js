@@ -141,13 +141,14 @@ exports.deleteAll = (req, res) => {
 
 // Retrieve Top Events from the database.
 exports.findTop = function () {
-  return Event.findAll({where: { Grade.findAll({
-      // Add order conditions here....
-      order: [
-          ['grade', 'DESC'],
-          ['event_id', 'ASC'],
-      ],
-      attributes: ["event_id"],
-      limit: number
-  }).include(id)}});
+  Topevents = Grade.findAll({
+    // Add order conditions here....
+    order: [
+        ['grade', 'DESC'],
+        ['event_id', 'ASC'],
+    ],
+    attributes: ["event_id"],
+    limit: number
+})
+  return Event.findAll({where: { id: Topevents}});
 };
