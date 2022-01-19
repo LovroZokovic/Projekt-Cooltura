@@ -14,10 +14,6 @@ const pgSession = require('connect-pg-simple')(session);
 
 const app = express();
 
-let upload = require('../config/multer.config.js');
- 
-const fileWorker = require('../controllers/file.controller.js');
-
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
@@ -49,6 +45,11 @@ app.get('/', (req, res) => {
 
 require('./routes/auth.routes.js')(app);
 require('./routes/event.routes.js')(app);
+require('./routes/comment.routes.js')(app);
+require('./routes/grade.routes.js')(app);
+require('./routes/interest.routes.js')(app);
+require('./routes/role.routes.js')(app);
+require('./routes/user.routes.js')(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
