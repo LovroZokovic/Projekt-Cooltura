@@ -1,42 +1,40 @@
 const { Router } = require("express");
 const db = require("../models");
-const Event = db.events;
+const Role = db.roles;
 const Op = db.Sequelize.Op;
 var router = require("express").Router();
 
-// Create and Save a new Event
+// Create and Save a new Role
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
 
-  // Create an Event
-  const event = {
-    title: req.body.title,
-    description: req.body.description,
-    interest: 0
+  // Create an Role
+  const role = {
+    name: req.body.name,
   };
 
-  // Save Event in the database
-  Event.create(event)
+  // Save Role in the database
+  Role.create(role)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Event."
+          err.message || "Some error occurred while creating the Role."
       });
     });
 };
 
-// Retrieve all Events from the database.
+// Retrieve all Roles from the database.
 exports.findAll = (req, res) => {
-    Event.findAll()
+    Role.findAll()
       .then(data => {
         res.send(data);
       })
@@ -45,84 +43,85 @@ exports.findAll = (req, res) => {
           message:
             err.message || "Some error occurred while retrieving tutorials."
         });
-      })    
+      });
+      
 };
 
-// Find a single Event with an id
+// Find a single Role with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Event.findByPk(id)
+  Role.findByPk(id)
     .then(data => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Event with id=${id}.`
+          message: `Cannot find Role with id=${id}.`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Event with id=" + id
+        message: "Error retrieving Role with id=" + id
       });
     });
 };
 
-// Update a Event by the id in the request
+// Update a Role by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Event.update(req.body, {
+  Role.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Event was updated successfully."
+          message: "Role was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Event with id=${id}. Maybe Event was not found or req.body is empty!`
+          message: `Cannot update Role with id=${id}. Maybe Role was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Event with id=" + id
+        message: "Error updating Role with id=" + id
       });
     });
 };
 
-// Delete a Event with the specified id in the request
+// Delete a Role with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Event.destroy({
+  Role.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Event was deleted successfully!"
+          message: "Role was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Event with id=${id}. Maybe Event was not found!`
+          message: `Cannot delete Role with id=${id}. Maybe Role was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Event with id=" + id
+        message: "Could not delete Role with id=" + id
       });
     });
 
 };
 
-// Delete all Events from the database.
+// Delete all Roles from the database.
 exports.deleteAll = (req, res) => {
-  Event.destroy({
+  Role.destroy({
     where: {},
     truncate: false
   })
@@ -136,4 +135,3 @@ exports.deleteAll = (req, res) => {
       });
     });
 };
-

@@ -7,10 +7,7 @@ module.exports = app => {
     router.post("/", roles.create);
   
     // Retrieve all roles
-    router.get("/", roles.findAll);    
-
-    // Retrieve roles for user
-    router.get("/user/:id", roles.findUser);    
+    router.get("/", roles.findAll);     
 
     // Retrieve a single role with id
     router.get("/:id", roles.findOne);
