@@ -12,6 +12,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       description: {
         type: Sequelize.STRING
+      },
+      date: {
+        type: Sequelize.DATE
+      },
+      image: {
+        type: Sequelize.BLOB('long')
       }
     }, 
       
