@@ -3,7 +3,7 @@ const crypto = require('crypto')
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("user", {
     id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUIDV4,
       notEmpty: true,
       notNull: true,
       primaryKey: true,

@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
     const Interest = sequelize.define("interest", {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUIDV4,
         notEmpty: true,
         notNull: true,
         primaryKey: true,
