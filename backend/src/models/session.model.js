@@ -11,6 +11,6 @@ module.exports = function(sequelize, Sequelize) {
         primaryKey: true
       }
     }, {
-      tableName: 'session'
+      tableName: 'sessions'
     });
   };

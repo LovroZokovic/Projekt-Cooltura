@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Interest = sequelize.define("interest", {
+    const Interest = sequelize.define("interests", {
       id: {
         type: Sequelize.UUIDV4,
         notEmpty: true,
