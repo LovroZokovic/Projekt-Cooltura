@@ -41,7 +41,8 @@ exports.signup = (req, res) => {
         id: uuid(),
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     }
 
     User.create(newUser)
