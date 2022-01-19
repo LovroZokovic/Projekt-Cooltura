@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Grade = sequelize.define("grade", {
+    const Grade = sequelize.define("grades", {
       id: {
         type: Sequelize.UUIDV4,
         notEmpty: true,

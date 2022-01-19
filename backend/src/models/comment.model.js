@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Comment = sequelize.define("comment", {
+    const Comment = sequelize.define("comments", {
       id: {
         type: Sequelize.UUIDV4,
         notEmpty: true,
