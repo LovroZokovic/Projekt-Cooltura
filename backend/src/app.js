@@ -14,6 +14,9 @@ const pgSession = require('connect-pg-simple')(session);
 
 const app = express();
 
+let upload = require('../config/multer.config.js');
+ 
+const fileWorker = require('../controllers/file.controller.js');
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
