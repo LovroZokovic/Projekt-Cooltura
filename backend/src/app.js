@@ -28,7 +28,7 @@ var corsOptions = {
     origin: process.env.CORS_LINK
 };
   
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 app.set('trust proxy', 1); 
 app.use(express.json());
 app.use(cookieParser());

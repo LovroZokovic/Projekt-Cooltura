@@ -1,5 +1,23 @@
 import {Button, Card, CardBody, CardTitle, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import React, { useState } from "react";
+import axios from 'axios'
+import {Link} from "react-router-dom";
+import Starter from "../Starter";
+
+const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(event.target.elements.title.value)
+    console.log(event.target.elements.description.value)
+    axios.post('http://localhost:2080/api/events/', {
+        title: event.target.elements.title.value,
+        description: event.target.elements.description.value,
+    }).then((response) => {
+        console.log(response);
+    });
+    return Starter;
+}
+
+
 const AddEvent = () => {
     const [selectedImage, setSelectedImage] = useState(null);
   return(
@@ -14,22 +32,13 @@ const AddEvent = () => {
                       Add event
                   </CardTitle>
                   <CardBody>
-                      <Form>
+                      <Form onSubmit={handleSubmit()}>
                           <FormGroup>
-                              <Label for="place">The place of event</Label>
+                              <Label for="name">The title of event</Label>
                               <Input
-                                  id="place"
-                                  name="place"
-                                  placeholder="place"
-                                  type="text"
-                              />
-                          </FormGroup>
-                          <FormGroup>
-                              <Label for="name">The name of event</Label>
-                              <Input
-                                  id="name"
-                                  name="name"
-                                  placeholder="name"
+                                  id="title"
+                                  name="title"
+                                  placeholder="title"
                                   type="text"
                               />
                           </FormGroup>
@@ -75,8 +84,8 @@ const AddEvent = () => {
                                   }}
                               />
                           </FormGroup>
-                          <Button style={{marginRight: "0.5rem"}}>Add</Button>
-                          <Button>Cancel</Button>
+                          <Button type="submit" style={{marginRight: "0.5rem"}}>Add</Button>
+                          <Link to="/starter" className="btn btn-secondary">Cancel</Link>
                       </Form>
                   </CardBody>
               </Card>
