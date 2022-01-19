@@ -1,5 +1,4 @@
 const express = require("express");
-var compression = require('compression')
 const bodyParser = require("body-parser");
 const cors = require("cors");
 var cookieParser = require('cookie-parser');
@@ -12,8 +11,9 @@ const path = require('path');
 const pg = require('pg');
 const pgSession = require('connect-pg-simple')(session);
 
+
 const app = express();
-app.use(compression())
+
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')

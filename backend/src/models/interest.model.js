@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Event = sequelize.define("event", {
+    const Interest = sequelize.define("interest", {
       id: {
         type: Sequelize.INTEGER,
         notEmpty: true,
@@ -7,11 +7,15 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         unique: true
       },
-      title: {
-        type: Sequelize.STRING
+      event_id: {
+        type: Sequelize.INTEGER,
+        notEmpty: true,
+        notNull: true,
       },
-      description: {
-        type: Sequelize.STRING
+      user_id: {
+        type: Sequelize.INTEGER,
+        notEmpty: true,
+        notNull: true,
       }
     }, 
       
@@ -21,5 +25,5 @@ module.exports = (sequelize, Sequelize) => {
     }
     );
   
-    return Event;
+    return Interest;
   };

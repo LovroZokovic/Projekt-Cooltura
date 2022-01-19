@@ -145,7 +145,7 @@ exports.verifypassword = async (req, res) => {
 }
 
 exports.login_page = (req, res) => {
-    res.render('register');
+    res.json({ message:'Login page\n'});
 }
 
 exports.signup_page = (req, res) => {
