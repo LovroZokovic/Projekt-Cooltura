@@ -24,11 +24,7 @@ const PORT = process.env.APP_PORT
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-var corsOptions = {
-    origin: process.env.CORS_LINK
-};
-  
-app.use(cors(corsOptions));
+
 app.set('trust proxy', 1); 
 app.use(express.json());
 app.use(cookieParser());
