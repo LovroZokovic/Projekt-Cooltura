@@ -4,6 +4,7 @@ const Op = db.Sequelize.Op;
 const where = db.Sequelize.where;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt.config');
+const {v4:uuid} = require('uuid');
 
 async function findUserByUsername(username) {
     try {
@@ -37,9 +38,11 @@ exports.signup = (req, res) => {
 
     // Create the User Record
     const newUser = {
+        id: uuid(),
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     }
 
     User.create(newUser)
