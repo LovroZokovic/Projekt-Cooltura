@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const db = require("../models");
 const Event = db.events;
+const Grade = db.grades;
 const Op = db.Sequelize.Op;
 var router = require("express").Router();
 
@@ -137,3 +138,16 @@ exports.deleteAll = (req, res) => {
     });
 };
 
+
+// Retrieve Top Events from the database.
+exports.findTop = function () {
+  return Event.findAll({where: { Grade.findAll({
+      // Add order conditions here....
+      order: [
+          ['grade', 'DESC'],
+          ['event_id', 'ASC'],
+      ],
+      attributes: ["event_id"],
+      limit: number
+  }).include(id)}});
+};
