@@ -43,6 +43,9 @@ const BlogData = [
 ];
 
 function getEvents(){
+
+  var variables = axios.get('http://localhost:2080/api/events/')
+                .then(res => console.log(res.data));
   return BlogData
 }
 
