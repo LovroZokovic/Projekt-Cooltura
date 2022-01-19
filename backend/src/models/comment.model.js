@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
-    const Comment = sequelize.define("comment", {
+    const Comment = sequelize.define("comments", {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUIDV4,
         notEmpty: true,
         notNull: true,
         primaryKey: true,
@@ -28,5 +28,5 @@ module.exports = (sequelize, Sequelize) => {
     }
     );
   
-    return Event;
+    return Comment;
   };

@@ -16,9 +16,11 @@ db.sequelize = sequelize;
 
 db.events = require("./event.model.js")(db.sequelize, db.Sequelize);
 db.users = require("./user.model.js")(db.sequelize, db.Sequelize);
-db.role = require("./role.model.js")(db.sequelize, db.Sequelize);
-db.session = require("./session.model.js")(db.sequelize, db.Sequelize);
-
+db.roles = require("./role.model.js")(db.sequelize, db.Sequelize);
+db.sessions = require("./session.model.js")(db.sequelize, db.Sequelize);
+db.comments = require("./comment.model.js")(db.sequelize, db.Sequelize);
+db.grades = require("./grade.model.js")(db.sequelize, db.Sequelize);
+db.interests = require("./interest.model.js")(db.sequelize, db.Sequelize);
 
 module.exports = db;
 
