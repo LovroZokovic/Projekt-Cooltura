@@ -16,5 +16,5 @@ module.exports = app => {
 
     router.post("/verifypassword", auth, auths.verifypassword);
 
-    app.use('/api/auths', router);
+    app.use('/api/auth', router);
 };

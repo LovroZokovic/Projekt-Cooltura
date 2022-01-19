@@ -9,6 +9,9 @@ module.exports = app => {
     // Retrieve all Events
     router.get("/", events.findAll);
 
+    // Retrieve Top Events
+    router.get("/top/:number", events.findTop);    
+
     // Retrieve a single Event with id
     router.get("/:id", events.findOne);
   
@@ -18,7 +21,7 @@ module.exports = app => {
     // Delete a Event with id
     router.delete("/:id", events.delete);
   
-    // Create a new Event
+    // Delete all events
     router.delete("/", events.deleteAll);
   
     app.use('/api/events', router);
