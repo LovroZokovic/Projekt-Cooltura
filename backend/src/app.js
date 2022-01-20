@@ -55,9 +55,10 @@ app.use(
   session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false }
   })
 );
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')))

@@ -20,7 +20,8 @@ exports.create = (req, res) => {
     title: req.body.title,
     description: req.body.description,
     date: req.body.date,
-    image: req.file.buffer
+    time: req.body.time,
+    image: req.body.image
   };
 
   // Save Event in the database
