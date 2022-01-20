@@ -6,7 +6,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   operatorsAliases: 0,
   port: dbConfig.PORT,
   dialect: 'postgres',
-  sync: { force: true },
+  logging: true
 });
 
 const db = {};
@@ -14,13 +14,13 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.events = require("./event.model.js")(db.sequelize, db.Sequelize);
-db.users = require("./user.model.js")(db.sequelize, db.Sequelize);
-db.roles = require("./role.model.js")(db.sequelize, db.Sequelize);
-db.sessions = require("./session.model.js")(db.sequelize, db.Sequelize);
-db.comments = require("./comment.model.js")(db.sequelize, db.Sequelize);
-db.grades = require("./grade.model.js")(db.sequelize, db.Sequelize);
-db.interests = require("./interest.model.js")(db.sequelize, db.Sequelize);
+db.events = require("./event.model.js")(sequelize, Sequelize);
+db.users = require("./user.model.js")(sequelize, Sequelize);
+db.roles = require("./role.model.js")(sequelize, Sequelize);
+db.sessions = require("./session.model.js")(sequelize, Sequelize);
+db.comments = require("./comment.model.js")(sequelize, Sequelize);
+db.grades = require("./grade.model.js")(sequelize, Sequelize);
+db.interests = require("./interest.model.js")(sequelize, Sequelize);
 
 module.exports = db;
 

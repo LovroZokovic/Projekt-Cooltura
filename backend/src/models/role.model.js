@@ -1,8 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-    const Role = sequelize.define("roles", {
+    const Role = sequelize.define("role", {
       id: {
-        type: Sequelize.UUIDV4,
-        primaryKey: true
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
       },
       name: {
         type: Sequelize.STRING
@@ -12,6 +13,8 @@ module.exports = (sequelize, Sequelize) => {
       { timestamps: false,
         createdAt: false,
         updatedAt: false,
+        tableName: 'roles',
+        freezeTableName: true
       }
     );
   

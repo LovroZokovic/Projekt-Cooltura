@@ -1,13 +1,14 @@
 const crypto = require('crypto')
 
 module.exports = (sequelize, Sequelize) => {
-  const User = sequelize.define("users", {
+  const User = sequelize.define("user", {
     id: {
-      type: Sequelize.UUIDV4,
+      type: Sequelize.INTEGER,
       notEmpty: true,
       notNull: true,
       primaryKey: true,
-      unique: true
+      unique: true,
+      autoIncrement: true
     },
     username: {
       type: Sequelize.STRING,
@@ -49,6 +50,9 @@ module.exports = (sequelize, Sequelize) => {
         return () => this.getDataValue('salt')
       }
     }
+  }, {
+    tableName: 'users',
+    freezeTableName: true,
   });
 
   User.generateSalt = function () {

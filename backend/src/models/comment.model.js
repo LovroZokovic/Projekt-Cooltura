@@ -1,11 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-    const Comment = sequelize.define("comments", {
+    const Comment = sequelize.define("comment", {
       id: {
-        type: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
         notEmpty: true,
         notNull: true,
         primaryKey: true,
-        unique: true
+        unique: true,
+        autoIncrement: true
       },
       event_id: {
         type: Sequelize.INTEGER,
@@ -25,6 +26,8 @@ module.exports = (sequelize, Sequelize) => {
     { timestamps: false,
       createdAt: false,
       updatedAt: false,
+      tableName: 'comments',
+      freezeTableName: true
     }
     );
   

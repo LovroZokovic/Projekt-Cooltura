@@ -1,11 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-    const Interest = sequelize.define("interests", {
+    const Interest = sequelize.define("interest", {
       id: {
-        type: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
         notEmpty: true,
         notNull: true,
         primaryKey: true,
-        unique: true
+        unique: true,
+        autoIncrement: true
       },
       event_id: {
         type: Sequelize.INTEGER,
@@ -22,6 +23,8 @@ module.exports = (sequelize, Sequelize) => {
     { timestamps: false,
       createdAt: false,
       updatedAt: false,
+      tableName: 'interests',
+      freezeTableName: true
     }
     );
   
