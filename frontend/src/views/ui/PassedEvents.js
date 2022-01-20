@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {Row, Col} from "reactstrap"
 import e1 from "../../assets/images/bg/zg_kaz.jpg";
 import e2 from "../../assets/images/bg/zg_muzej_iluzija.jpg";
@@ -22,11 +25,23 @@ const Data = [
     },
 ];
 
-function getPassedEvents(){
-    return Data;
-}
 
 const PassedEvents = () => {
+
+    const[events, setEvents] = useState([]);
+
+    const [passedEvents, setPassedEvents] = useState([]);
+
+
+    const {id} = useParams();
+
+    function getPassedEvents(){
+        axios.get(`http://localhost:2080/api/interests/user/${id}`).then(
+            (response) => setEvents(response.data)
+        ).catch((err) => {
+            console.log(err)
+        })
+    }
     return (
         <div>
             {/***Blog Cards***/}
