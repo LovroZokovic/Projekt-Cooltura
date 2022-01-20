@@ -45,11 +45,12 @@ const AddEvent = () => {
             title: state.title,
             description: state.description,
             date: state.date,
-            time: state.time
+            time: state.time,
+            image: selectedImage
 
         }
         console.log(newEvent)
-        axios.post('http://localhost:2080/api/events/', newEvent, selectedImage).then((res) => {
+        axios.post('http://localhost:2080/api/events/', newEvent).then((res) => {
             setState({
                 title:'',
                 description:'',
