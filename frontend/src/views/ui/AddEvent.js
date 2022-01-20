@@ -36,23 +36,20 @@ const AddEvent = () => {
         if (
             state.title === '' ||
             state.description === '' ||
-            state.date === '' || 
-            state.time === ""
+            state.date === ''  
         ) {
             console.log("svi podatci se trebaju unjeti")
         }
-        const newEvent = {
+        axios.post('http://localhost:2080/api/events/', {
             title: state.title,
             description: state.description,
             date: state.date,
-            time: state.time
-        }
-        axios.post('http://localhost:2080/api/events/', newEvent).then((res) => {
+        }).then((res) => {
+            console.log(res);
             setState({
                 title:'',
                 description:'',
                 date:'',
-                time:''
             })
         }, (error) => {
             console.log(error);
@@ -96,16 +93,6 @@ const AddEvent = () => {
                                   onChange={onChange}
                                   value={state.date}
                                   type="date"
-                              />
-                          </FormGroup>
-                          <FormGroup>
-                              <Label for="time">The time of event</Label>
-                              <Input
-                                  id="time"
-                                  name="time"
-                                  onChange={onChange}
-                                  value={state.time}
-                                  type="time"
                               />
                           </FormGroup>
                           <FormGroup>

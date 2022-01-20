@@ -47,10 +47,14 @@ const BlogData = [
   
 ];
 
-function getEvents(){
+async function getEvents(){
+  var events
+  var variables = await axios.get('http://localhost:2080/api/events/');
 
-  var variables = axios.get('http://localhost:2080/api/events/')
-                .then(res => console.log(res.data));
+  console.log(variables);
+  console.log(variables.data);
+  console.log(variables.data.title);
+  console.log("hi");
   return BlogData
 }
 
@@ -59,14 +63,14 @@ const Starter = () => {
     <div>
       {/***Blog Cards***/}
       <Row>
-        {getEvents().map((blg, index) => (
+        {BlogData.map((blg, index) => (
           <Col sm="6" lg="6" xl="3" key={index}>
             <Blog
               id = {blg.id}
-              image={blg.image}
+              image={bg4}
               title={blg.title}
               subtitle={blg.date}
-              text={'Interested: ' + blg.interested}
+              text="{'Interested: ' + 1}"
               color="primary"
             />
           </Col>
