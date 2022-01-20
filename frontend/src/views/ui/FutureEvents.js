@@ -1,3 +1,4 @@
+import axios from "axios";
 import {Row, Col} from "reactstrap"
 import e1 from "../../assets/images/bg/zg_kaz.jpg";
 import e2 from "../../assets/images/bg/zg_muzej_iluzija.jpg";
