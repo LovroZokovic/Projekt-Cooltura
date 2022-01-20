@@ -11,6 +11,15 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 
 const app = express();
 
+app.set('views', path.join(__dirname, 'views'))
+//app.set('view engine', 'ejs')
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+const PORT = process.env.APP_PORT
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
 app.set('trust proxy', 1);
 app.use(express.json());
 app.use(cookieParser());
@@ -50,14 +59,27 @@ require('./routes/user.routes.js')(app);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
-app.use(express.static(__dirname));
+
 app.use(
   session({
+    // Key we want to keep secret which will encrypt all of our information
     secret: process.env.SECRET,
+    // Should we resave our session variables if nothing has changes which we dont
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
+    // Save empty value if there is no vaue which we do not want to do
+    saveUninitialized: false
   })
 );
 
 app.use(bodyParser.json());
+app.use(flash());
+
+
+app.use(function (req, res, next) {
+  res.locals.message = req.flash('message');
+  next();
+});
+
+app.use(function (req, res) {
+  res.status(404).end('error 404');
+});

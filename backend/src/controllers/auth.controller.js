@@ -79,8 +79,6 @@ exports.login = async (req, res) => {
         });
     } else {
         if(user.verifyPassword(req.body.password)) {
-            session=req.session;
-            session.userid=req.body.user.id;
             res.status(200).send({
                 message: "Login Successful",
                 token: jwt.sign({ username: user.username, email: user.email }, secret)

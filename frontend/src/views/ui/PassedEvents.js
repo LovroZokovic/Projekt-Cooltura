@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {Row, Col} from "reactstrap"
 import e1 from "../../assets/images/bg/zg_kaz.jpg";
@@ -26,41 +26,27 @@ const Data = [
 ];
 
 
-
-
 const PassedEvents = () => {
 
-    function fakeEvents(){
-        return Data
-    }
-
     const[events, setEvents] = useState([]);
+
+    const [passedEvents, setPassedEvents] = useState([]);
+
 
     const {id} = useParams();
 
     function getPassedEvents(){
         axios.get(`http://localhost:2080/api/interests/user/${id}`).then(
-            (response) => {
-                const passedEvents = [];
-                const current = new Date();
-                const Cdate = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
-                if (response.date < Cdate ){
-                    passedEvents.append()
-                }
-            }
+            (response) => setEvents(response.data)
         ).catch((err) => {
             console.log(err)
         })
-
     }
-
-    useEffect(() => {
-    })
     return (
         <div>
             {/***Blog Cards***/}
             <Row>
-                {fakeEvents().map((event, index) => (
+                {getPassedEvents().map((event, index) => (
                     <Col sm="6" lg="6" xl="3" key={index}>
                         <Passed
 
