@@ -53,8 +53,7 @@ async function getEvents(){
 
   console.log(variables);
   console.log(variables.data);
-  console.log(variables.data.title);
-  console.log("hi");
+  console.log(BlogData);
   return BlogData
 }
 

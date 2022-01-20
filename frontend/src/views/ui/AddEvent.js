@@ -36,7 +36,8 @@ const AddEvent = () => {
         if (
             state.title === '' ||
             state.description === '' ||
-            state.date === ''  
+            state.date === '' || 
+            state.time === ""
         ) {
             console.log("svi podatci se trebaju unjeti")
         }
@@ -44,12 +45,14 @@ const AddEvent = () => {
             title: state.title,
             description: state.description,
             date: state.date,
+            time: state.time,
+            Image: state.myImage
         }).then((res) => {
-            console.log(res);
             setState({
                 title:'',
                 description:'',
                 date:'',
+                time:''
             })
         }, (error) => {
             console.log(error);
@@ -96,6 +99,16 @@ const AddEvent = () => {
                               />
                           </FormGroup>
                           <FormGroup>
+                              <Label for="time">The time of event</Label>
+                              <Input
+                                  id="time"
+                                  name="time"
+                                  onChange={onChange}
+                                  value={state.time}
+                                  type="time"
+                              />
+                          </FormGroup>
+                          <FormGroup>
                               {selectedImage && (
                                   <div>
                                       <img alt="not found" width={"250px"} src={URL.createObjectURL(selectedImage)} />
@@ -107,6 +120,7 @@ const AddEvent = () => {
                               <Label for="myImage">Upload image</Label>
                               <br />
                               <input
+                                  id="myImage"
                                   type="file"
                                   name="myImage"
                                   onChange={(event) => {

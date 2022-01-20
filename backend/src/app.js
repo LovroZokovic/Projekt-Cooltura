@@ -72,14 +72,4 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.use(flash());
-
-
-app.use(function (req, res, next) {
-  res.locals.message = req.flash('message');
-  next();
-});
-
-app.use(function (req, res) {
-  res.status(404).end('error 404');
-});
+app.use(express.static(path.join(__dirname, 'public')))
