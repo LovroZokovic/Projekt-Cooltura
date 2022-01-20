@@ -30,7 +30,7 @@ const AddEvent = () => {
 		setState((oldForm) => ({ ...oldForm, [name]: value }));
 	}
 
-
+    const [selectedImage, setSelectedImage] = useState(null);
     function onSubmit(e) {
         e.preventDefault();
         if (
@@ -46,8 +46,10 @@ const AddEvent = () => {
             description: state.description,
             date: state.date,
             time: state.time
+
         }
-        axios.post('http://localhost:2080/api/events/', newEvent).then((res) => {
+        console.log(newEvent)
+        axios.post('http://localhost:2080/api/events/', newEvent, selectedImage).then((res) => {
             setState({
                 title:'',
                 description:'',
@@ -59,7 +61,7 @@ const AddEvent = () => {
         })
     }
 
-    const [selectedImage, setSelectedImage] = useState(null);
+    
   return(
       <Row>
           <Col>
