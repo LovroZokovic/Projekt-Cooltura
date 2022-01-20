@@ -17,7 +17,6 @@ exports.create = (req, res) => {
 
   // Create an Event
   const event = {
-    id: uuid(),
     title: req.body.title,
     description: req.body.description,
     date: req.body.date,
