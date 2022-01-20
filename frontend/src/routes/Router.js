@@ -34,7 +34,7 @@ const ThemeRoutes = [
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/starter" /> },
-      { path: "/event", exact: true, element: <Events /> },
+      { path: "/api/events/:id", exact: true, element: <Events /> },
       { path: "/passedEvents", exact: true, element: <PassedEvents /> },
       { path: "/addEvent", exact: true, element: <AddEvent /> },
       { path: "/comment", exact: true, element: <Comment /> },

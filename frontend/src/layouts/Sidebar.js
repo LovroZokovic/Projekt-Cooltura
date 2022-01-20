@@ -9,11 +9,6 @@ const navigation = [
     icon: "bi bi-calendar4-event",
   },
   {
-    title: "Event",
-    href: "/event",
-    icon: "bi bi-calendar4-event",
-  },
-  {
     title: "MyPassedEvents",
     href: "/passedEvents",
     icon: "bi bi-clock-history",
