@@ -1,16 +1,18 @@
 module.exports = function(sequelize, Sequelize) {
-    return sequelize.define('sessions', {
+    return sequelize.define('session', {
       id: {
-        type: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
       user_id: {
-        type: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true
       }
     }, {
-      tableName: 'sessions'
+      tableName: 'sessions',
+      freezeTableName: true,
     });
   };
