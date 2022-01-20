@@ -38,7 +38,6 @@ exports.signup = (req, res) => {
 
     // Create the User Record
     const newUser = {
-        id: uuid(),
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
