@@ -4,7 +4,7 @@ import axios from 'axios'
 import {Link} from "react-router-dom";
 import Starter from "../Starter";
 
-const handleSubmit = (event) => {
+/*const handleSubmit = (event) => {
     event.preventDefault()
     console.log(event.target.elements.title.value)
     console.log(event.target.elements.description.value)
@@ -15,10 +15,50 @@ const handleSubmit = (event) => {
         console.log(response);
     });
     return Starter;
-}
+}*/
 
 
 const AddEvent = () => {
+    const [state, setState] = useState({
+        title:'',
+        description:'',
+        date:'',
+        time:''
+    });
+    function onChange(event) {
+		const { name, value } = event.target;
+		setState((oldForm) => ({ ...oldForm, [name]: value }));
+	}
+
+
+    function onSubmit(e) {
+        e.preventDefault();
+        if (
+            state.title === '' ||
+            state.description === '' ||
+            state.date === '' || 
+            state.time === ""
+        ) {
+            console.log("svi podatci se trebaju unjeti")
+        }
+        const newEvent = {
+            title: state.title,
+            description: state.description,
+            date: state.date,
+            time: state.time
+        }
+        axios.post('http://localhost:2080/api/events/', newEvent).then((res) => {
+            setState({
+                title:'',
+                description:'',
+                date:'',
+                time:''
+            })
+        }, (error) => {
+            console.log(error);
+        })
+    }
+
     const [selectedImage, setSelectedImage] = useState(null);
   return(
       <Row>
@@ -32,26 +72,29 @@ const AddEvent = () => {
                       Add event
                   </CardTitle>
                   <CardBody>
-                      <Form onSubmit={handleSubmit()}>
+                      <Form onSubmit={onSubmit}>
                           <FormGroup>
                               <Label for="title">The title of event</Label>
                               <Input
                                   id="title"
                                   name="title"
-                                  placeholder="title"
+                                    onChange={onChange}
+                                    value={state.title}
                                   type="text"
                               />
                           </FormGroup>
                           <FormGroup>
                               <Label for="description">Description</Label>
-                              <Input id="description" name="description" type="textarea" />
+                              <Input id="description" name="description" type="textarea" 
+                              onChange={onChange} value={state.description} />
                           </FormGroup>
                           <FormGroup>
                               <Label for="date">The date of event</Label>
                               <Input
                                   id="date"
                                   name="date"
-                                  placeholder="date"
+                                  onChange={onChange}
+                                  value={state.date}
                                   type="date"
                               />
                           </FormGroup>
@@ -60,7 +103,8 @@ const AddEvent = () => {
                               <Input
                                   id="time"
                                   name="time"
-                                  placeholder="time"
+                                  onChange={onChange}
+                                  value={state.time}
                                   type="time"
                               />
                           </FormGroup>

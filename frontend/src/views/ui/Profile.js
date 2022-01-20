@@ -1,6 +1,7 @@
 import { Card, CardBody, CardHeader, Col, Row } from "reactstrap";
 import React, {useEffect, useState} from 'react'
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -15,7 +16,7 @@ const Profile = () => {
       axios.get(`http://localhost:2080/api/users/${id}`)
         .then((res) => {
           console.log(res);
-          setState({
+          setData({
             userName:res.username,
             email:res.email
           });
