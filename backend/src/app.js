@@ -14,7 +14,6 @@ const pgSession = require('connect-pg-simple')(session);
 
 const app = express();
 
-
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
@@ -24,11 +23,15 @@ const PORT = process.env.APP_PORT
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+<<<<<<< HEAD
 var corsOptions = {
     origin: process.env.CORS_LINK
 };
   
 //app.use(cors(corsOptions));
+=======
+
+>>>>>>> master
 app.set('trust proxy', 1); 
 app.use(express.json());
 app.use(cookieParser());
@@ -50,6 +53,11 @@ app.get('/', (req, res) => {
 
 require('./routes/auth.routes.js')(app);
 require('./routes/event.routes.js')(app);
+require('./routes/comment.routes.js')(app);
+require('./routes/grade.routes.js')(app);
+require('./routes/interest.routes.js')(app);
+require('./routes/role.routes.js')(app);
+require('./routes/user.routes.js')(app);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));

@@ -14,7 +14,7 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving users."
         });
       });
       
@@ -92,7 +92,7 @@ exports.delete = (req, res) => {
 
 };
 
-// Delete all USers from the database.
+// Delete all Users from the database.
 exports.deleteAll = (req, res) => {
   User.destroy({
     where: {},
@@ -109,3 +109,18 @@ exports.deleteAll = (req, res) => {
     });
 };
 
+exports.findEvent = (req, res) => {
+  const id = req.params.id;
+
+  User.findAll({where:{event_id: id}})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving events."
+      });
+    });
+    
+};

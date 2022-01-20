@@ -34,7 +34,7 @@ const AddEvent = () => {
                   <CardBody>
                       <Form onSubmit={handleSubmit()}>
                           <FormGroup>
-                              <Label for="name">The title of event</Label>
+                              <Label for="title">The title of event</Label>
                               <Input
                                   id="title"
                                   name="title"

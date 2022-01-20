@@ -1,5 +1,5 @@
 module.exports = function(sequelize, Sequelize) {
-    return sequelize.define('session', {
+    return sequelize.define('sessions', {
       id: {
         type: Sequelize.UUIDV4,
         allowNull: false,
@@ -11,6 +11,6 @@ module.exports = function(sequelize, Sequelize) {
         primaryKey: true
       }
     }, {
-      tableName: 'session'
+      tableName: 'sessions'
     });
   };
