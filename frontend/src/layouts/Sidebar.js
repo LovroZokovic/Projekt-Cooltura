@@ -2,7 +2,6 @@ import { Button, Nav, NavItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 import probg from "../assets/images/bg/logo_small.png";
 
-
 const navigation = [
   {
     title: "Events",
@@ -31,6 +30,22 @@ const navigation = [
   },
 ];
 
+function logoutUser(){
+  console.log("LogoutUser");
+  sessionStorage.data = undefined;
+  console.log(sessionStorage.data)
+  window.location.replace("http://localhost:3000/#/Starter");
+}
+
+function checkLogin(){
+  if(sessionStorage.data === undefined){
+    return <a href="/#/login">Login</a>
+  }
+  else{
+    return <a href="/#/starter" onClick={logoutUser()}>Logout</a>
+  }
+}
+
 function checkSession(href){
     if(sessionStorage.data === undefined){
       return "/starter"
@@ -43,6 +58,9 @@ const Sidebar = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   let location = useLocation();
+  let state = {
+    mssg: ""
+  };
   return (
     <div>
       <div className="d-flex align-items-center"></div>
@@ -58,7 +76,7 @@ const Sidebar = () => {
           </Button>
         </div>
         <div className="bg-dark text-white p-2 opacity-75">
-          <a href="/#/login">Login</a>
+          {checkLogin()}
         </div>
       </div>
       <div className="p-3 mt-2">

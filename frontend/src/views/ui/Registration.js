@@ -32,10 +32,11 @@ import Login from "./Login";
   const Registration = () => {
 
     console.log(sessionStorage.data);
+    // console.log(getTokenUserName(localStorage.data));
 
-    // if(getTokenUserName(localStorage.data) != null){
-    //   window.location.replace("http://localhost:3000/#/Starter");
-    // }
+    if(sessionStorage.data !== undefined){
+      window.location.replace("http://localhost:3000/#/Starter");
+    }
 
     return (
       <Row>
