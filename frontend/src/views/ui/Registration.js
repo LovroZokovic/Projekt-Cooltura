@@ -29,7 +29,7 @@ import Login from "./Login";
     }).then((response) => {
       console.log(response);
     });
-    return Login;
+    window.location.replace("http://localhost:3000/#/login");
   }
 
   const Registration = () => {
