@@ -41,13 +41,13 @@ const AddEvent = () => {
         ) {
             console.log("svi podatci se trebaju unjeti")
         }
-        const newEvent = {
+        axios.post('http://localhost:2080/api/events/', {
             title: state.title,
             description: state.description,
             date: state.date,
-            time: state.time
-        }
-        axios.post('http://localhost:2080/api/events/', newEvent).then((res) => {
+            time: state.time,
+            Image: state.myImage
+        }).then((res) => {
             setState({
                 title:'',
                 description:'',
@@ -120,6 +120,7 @@ const AddEvent = () => {
                               <Label for="myImage">Upload image</Label>
                               <br />
                               <input
+                                  id="myImage"
                                   type="file"
                                   name="myImage"
                                   onChange={(event) => {
