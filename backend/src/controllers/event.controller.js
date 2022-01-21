@@ -17,11 +17,11 @@ exports.create = (req, res) => {
 
   // Create an Event
   const event = {
-    id: uuid(),
     title: req.body.title,
     description: req.body.description,
     date: req.body.date,
-    image: req.file.buffer
+    time: req.body.time,
+    image: req.body.image
   };
 
   // Save Event in the database

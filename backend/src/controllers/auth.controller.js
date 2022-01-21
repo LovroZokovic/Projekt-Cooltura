@@ -38,7 +38,6 @@ exports.signup = (req, res) => {
 
     // Create the User Record
     const newUser = {
-        id: uuid(),
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
@@ -82,7 +81,7 @@ exports.login = async (req, res) => {
         if(user.verifyPassword(req.body.password)) {
             res.status(200).send({
                 message: "Login Successful",
-                token: jwt.sign({ username: user.username, email: user.email }, secret)
+                token: jwt.sign({ username: user.username, email: user.email, id: user.id, role: user.role }, secret)
             })
         } else {
             res.status(403).send({

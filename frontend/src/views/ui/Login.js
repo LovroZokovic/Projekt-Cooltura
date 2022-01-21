@@ -10,6 +10,28 @@ import {
     Label,
     Input,
   } from "reactstrap";
+import Starter from "../Starter";
+
+  const axios = require('axios')
+
+  function handleSubmit(event){
+    event.preventDefault()
+    var login;
+    console.log(event.target.elements.username.value)
+    console.log(event.target.elements.password.value)
+    axios.post('http://localhost:2080/api/auth/login', {
+      username: event.target.elements.username.value,
+      password: event.target.elements.password.value,
+    }).then((res) => {
+      console.log(res.data.token);
+      login = res;
+      sessionStorage.data = res.data.token;
+      console.log(sessionStorage.data);
+      window.location.replace("http://localhost:3000/#/Starter");
+      
+    });
+  }
+
 
   const Login = () => {
     return (
@@ -21,7 +43,7 @@ import {
               Login form. Don't have an account? Register <a href="/#/Registration">here</a>.
             </CardTitle>
             <CardBody>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <Label for="Username">Username</Label>
                   <Input
@@ -40,7 +62,7 @@ import {
                     type="password"
                   />
                 </FormGroup>
-                <Button>Login</Button>
+                <Button type="submit">Login</Button>
               </Form>
             </CardBody>
           </Card>

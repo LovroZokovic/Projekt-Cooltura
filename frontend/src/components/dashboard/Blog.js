@@ -5,8 +5,8 @@ import {
   CardSubtitle,
   CardText,
   CardTitle,
-  Button,
 } from "reactstrap";
+import {Link} from "react-router-dom";
 
 const Blog = (props) => {
   return (
@@ -16,7 +16,7 @@ const Blog = (props) => {
         <CardTitle tag="h5">{props.title}</CardTitle>
         <CardSubtitle>{props.subtitle}</CardSubtitle>
         <CardText className="mt-3">{props.text}</CardText>
-        <Button color={props.color}>Interested</Button>
+        <Link to={'/api/events/' + props.id} className="btn btn-secondary">Read more</Link>
       </CardBody>
     </Card>
   );

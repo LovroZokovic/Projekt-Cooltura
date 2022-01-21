@@ -1,6 +1,64 @@
 import {Button, Card, CardBody, CardTitle, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import React, { useState } from "react";
+import axios from 'axios'
+import {Link} from "react-router-dom";
+import Starter from "../Starter";
+
+/*const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(event.target.elements.title.value)
+    console.log(event.target.elements.description.value)
+    axios.post('http://localhost:2080/api/events/', {
+        title: event.target.elements.title.value,
+        description: event.target.elements.description.value,
+    }).then((response) => {
+        console.log(response);
+    });
+    return Starter;
+}*/
+
+
 const AddEvent = () => {
+    const [state, setState] = useState({
+        title:'',
+        description:'',
+        date:'',
+        time:''
+    });
+    function onChange(event) {
+		const { name, value } = event.target;
+		setState((oldForm) => ({ ...oldForm, [name]: value }));
+	}
+
+
+    function onSubmit(e) {
+        e.preventDefault();
+        if (
+            state.title === '' ||
+            state.description === '' ||
+            state.date === '' || 
+            state.time === ""
+        ) {
+            console.log("svi podatci se trebaju unjeti")
+        }
+        axios.post('http://localhost:2080/api/events/', {
+            title: state.title,
+            description: state.description,
+            date: state.date,
+            time: state.time,
+            Image: state.myImage
+        }).then((res) => {
+            setState({
+                title:'',
+                description:'',
+                date:'',
+                time:''
+            })
+        }, (error) => {
+            console.log(error);
+        })
+    }
+
     const [selectedImage, setSelectedImage] = useState(null);
   return(
       <Row>
@@ -14,35 +72,29 @@ const AddEvent = () => {
                       Add event
                   </CardTitle>
                   <CardBody>
-                      <Form>
+                      <Form onSubmit={onSubmit}>
                           <FormGroup>
-                              <Label for="place">The place of event</Label>
+                              <Label for="title">The title of event</Label>
                               <Input
-                                  id="place"
-                                  name="place"
-                                  placeholder="place"
-                                  type="text"
-                              />
-                          </FormGroup>
-                          <FormGroup>
-                              <Label for="name">The name of event</Label>
-                              <Input
-                                  id="name"
-                                  name="name"
-                                  placeholder="name"
+                                  id="title"
+                                  name="title"
+                                    onChange={onChange}
+                                    value={state.title}
                                   type="text"
                               />
                           </FormGroup>
                           <FormGroup>
                               <Label for="description">Description</Label>
-                              <Input id="description" name="description" type="textarea" />
+                              <Input id="description" name="description" type="textarea" 
+                              onChange={onChange} value={state.description} />
                           </FormGroup>
                           <FormGroup>
                               <Label for="date">The date of event</Label>
                               <Input
                                   id="date"
                                   name="date"
-                                  placeholder="date"
+                                  onChange={onChange}
+                                  value={state.date}
                                   type="date"
                               />
                           </FormGroup>
@@ -51,7 +103,8 @@ const AddEvent = () => {
                               <Input
                                   id="time"
                                   name="time"
-                                  placeholder="time"
+                                  onChange={onChange}
+                                  value={state.time}
                                   type="time"
                               />
                           </FormGroup>
@@ -67,6 +120,7 @@ const AddEvent = () => {
                               <Label for="myImage">Upload image</Label>
                               <br />
                               <input
+                                  id="myImage"
                                   type="file"
                                   name="myImage"
                                   onChange={(event) => {
@@ -75,8 +129,8 @@ const AddEvent = () => {
                                   }}
                               />
                           </FormGroup>
-                          <Button style={{marginRight: "0.5rem"}}>Add</Button>
-                          <Button>Cancel</Button>
+                          <Button type="submit" style={{marginRight: "0.5rem"}}>Add</Button>
+                          <Link to="/starter" className="btn btn-secondary">Cancel</Link>
                       </Form>
                   </CardBody>
               </Card>

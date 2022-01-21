@@ -10,8 +10,34 @@ import {
     Label,
     Input,
   } from "reactstrap";
+import Starter from "../Starter";
+import Login from "./Login";
+//import { getTokenId, getTokenUserName } from "../../routes/Token"
+
+  const axios = require('axios')
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    axios.post('http://localhost:2080/api/auth/signup', {
+      email: event.target.elements.email.value,
+      username: event.target.elements.username.value,
+      password: event.target.elements.password.value,
+      role: event.target.elements.select.value
+    }).then((response) => {
+      console.log(response);
+    });
+    window.location.replace("http://localhost:3000/#/login");
+  }
 
   const Registration = () => {
+
+    console.log(sessionStorage.data);
+    // console.log(getTokenUserName(localStorage.data));
+
+    if(sessionStorage.data !== undefined){
+      window.location.replace("http://localhost:3000/#/Starter");
+    }
+
     return (
       <Row>
         <Col>
@@ -21,7 +47,7 @@ import {
               Register form
             </CardTitle>
             <CardBody>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <FormGroup>
                   <Label for="Email">Email</Label>
                   <Input
@@ -56,7 +82,7 @@ import {
                     <option>Creator</option>
                   </Input>
                 </FormGroup>
-                <Button>Submit</Button>
+                <Button type="submit" >Submit</Button>
               </Form>
             </CardBody>
           </Card>
