@@ -23,9 +23,12 @@ import Starter from "../Starter";
       username: event.target.elements.username.value,
       password: event.target.elements.password.value,
     }).then((res) => {
-      console.log(res);
+      console.log(res.data.token);
       login = res;
+      sessionStorage.data = res.data.token;
+      console.log(sessionStorage.data);
       window.location.replace("http://localhost:3000/#/Starter");
+      
     });
   }
 

@@ -2,6 +2,7 @@ import { Button, Nav, NavItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 import probg from "../assets/images/bg/logo_small.png";
 
+
 const navigation = [
   {
     title: "Events",
@@ -29,6 +30,13 @@ const navigation = [
     icon: "bi bi-people",
   },
 ];
+
+function checkSession(href){
+    if(sessionStorage.data === undefined){
+      return "/starter"
+    }
+    return href;
+}
 
 const Sidebar = () => {
   const showMobilemenu = () => {
@@ -58,7 +66,7 @@ const Sidebar = () => {
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
-                to={navi.href}
+                to={checkSession(navi.href)}
                 className={
                   location.pathname === navi.href
                     ? "active nav-link py-3"
