@@ -1,76 +1,41 @@
 import { Col, Row } from "reactstrap";
-
 import Blog from "../components/dashboard/Blog";
 import bg4 from "../components/dashboard/uploadimg.png";
+import React,{useState,useEffect} from 'react'
 
 const axios = require('axios')
 
-const BlogData = [
-  {
-    id: 1,
-    
-    title: "Kazaliste Mimara special event",
-    date: new Date(2021, 12, 1).toDateString(),
-    interested: 1312,
-  },
-  {
-    id: 2,
-    
-    title: "De Facto kazališna grupa",
-    date: new Date(1990, 11, 1).toDateString(),
-    interested: 420,
-  },
-  {
-    id: 3,
-    
-    title: "Epilog teatar",
-    date: new Date(1990, 10, 1).toDateString(),
-    interested: 100000,
-  },
-  {
-    id: 4,
-    
-    title: "Gradsko kazalište lutaka Split",
-    date: new Date(1990, 10, 1).toDateString(),
-    interested: 10,
-  },
-  {
-    id: 5,
-    
-    title: "Hrvatsko narodno kazalište Split",
-    date: new Date(1990, 10, 1).toDateString(),
-    interested: 12,
-  },
-  
-];
 
-function getEvents(){
+const useFetch = url => {
+  const [data, setData] = useState(null);
 
-  const res = waitData().then((res) => {
-    const value = res.data;
-    console.log(value);
-    return value;
-  });      
-}
+  async function fetchData() {
+    const response = await axios.get(url);
+    setData(response.data);
+  }
 
-async function waitData(){
-    
-    const events = await axios.get('http://localhost:2080/api/events/');
-    console.log(events);
-    return events;
-}
+  useEffect(() => {fetchData()},[url]);
+  return data;
+};
+
+
 
 function Starter() {
 
+const Starter = () => {
+    const BlogData = useFetch("http://localhost:2080/api/events/");
+    
+    if (!BlogData) {
+        return <div>Loading...</div>
+    }
   return (
     <div>
-      {/***Blog Cards***/}
       <Row>
-      {getEvents().map((blg) => (
-          <Col sm="6" lg="6" xl="3">
+        {BlogData.map((blg) => (
+          <Col sm="6" lg="6" xl="3" key={blg.id}>
             <Blog
-             id={blg.id}
-             image={bg4}
+              id={blg.id}
+              image={blg.image}
               title={blg.title}
               subtitle={blg.title}
               text="{'Interested: ' + 1}"
