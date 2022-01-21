@@ -14,17 +14,19 @@ import Starter from "../Starter";
 
   const axios = require('axios')
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event){
     event.preventDefault()
+    var login;
     console.log(event.target.elements.username.value)
     console.log(event.target.elements.password.value)
     axios.post('http://localhost:2080/api/auth/login', {
       username: event.target.elements.username.value,
       password: event.target.elements.password.value,
-    }).then((response) => {
-      console.log(response);
+    }).then((res) => {
+      console.log(res);
+      login = res;
+      window.location.replace("http://localhost:3000/#/Starter");
     });
-    return Starter;
   }
 
 
