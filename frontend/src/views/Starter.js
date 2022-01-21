@@ -44,36 +44,40 @@ const BlogData = [
   
 ];
 
+function getEvents(){
 
-
-async function getEvents(){
-  var variables = await axios.get('http://localhost:2080/api/events/');
-  waitEvents()
-  return variables.data
+  const res = waitData().then((res) => {
+    const value = res.data;
+    console.log(value);
+    return value;
+  });      
 }
 
-function waitEvents(){
-
+async function waitData(){
+    
+    const events = await axios.get('http://localhost:2080/api/events/');
+    console.log(events);
+    return events;
 }
 
+function Starter() {
 
-const Starter = () => {
   return (
     <div>
       {/***Blog Cards***/}
       <Row>
-        {BlogData.map((blg, index) => {
-          <Col sm="6" lg="6" xl="3" key={index}>
+      {getEvents().map((blg) => (
+          <Col sm="6" lg="6" xl="3">
             <Blog
-              id={blg.id}
-              image={bg4}
+             id={blg.id}
+             image={bg4}
               title={blg.title}
-              subtitle={blg.date}
+              subtitle={blg.title}
               text="{'Interested: ' + 1}"
               color="primary"
             />
           </Col>
-        })}
+        ))}
       </Row>
     </div>
   );
@@ -82,17 +86,31 @@ const Starter = () => {
 export default Starter;
 
 
-{/* <Row>
-        {getEvents().then((data) => data.map((blg, index) => {
-          <Col sm="6" lg="6" xl="3" key={index}>
-            <Blog
-              id={blg.id}
-              image={bg4}
-              title={blg.title}
-              subtitle={blg.title}
-              text="{'Interested: ' + 1}"
-              color="primary"
-            />
-          </Col>
-        }))}
-      </Row> */}
+// {/* <Row>
+//         {getEvents().then((data) => data.map((blg, index) => {
+//           <Col sm="6" lg="6" xl="3" key={index}>
+//             <Blog
+//               id={blg.id}
+//               image={bg4}
+//               title={blg.title}
+//               subtitle={blg.title}
+//               text="{'Interested: ' + 1}"
+//               color="primary"
+//             />
+//           </Col>
+//         }))}
+//       </Row> */}
+
+
+      // {BlogData.map((blg, index) => {
+      //   <Col sm="6" lg="6" xl="3" key={index}>
+      //     <Blog
+      //       id={blg.id}
+      //       image={bg4}
+      //       title={blg.title}
+      //       subtitle={blg.date}
+      //       text="{'Interested: ' + 1}"
+      //       color="primary"
+      //     />
+      //   </Col>
+      // })}
