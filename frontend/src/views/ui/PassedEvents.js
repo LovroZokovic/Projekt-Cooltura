@@ -35,18 +35,18 @@ const PassedEvents = () => {
 
     const {id} = useParams();
 
-    function getPassedEvents(){
-        axios.get(`http://localhost:2080/api/interests/user/${id}`).then(
-            (response) => setEvents(response.data)
-        ).catch((err) => {
-            console.log(err)
-        })
-    }
+    // function Data{
+    //     axios.get(`http://localhost:2080/api/interests/user/${id}`).then(
+    //         (response) => setEvents(response.data)
+    //     ).catch((err) => {
+    //         console.log(err)
+    //     })
+    // }
     return (
         <div>
             {/***Blog Cards***/}
             <Row>
-                {getPassedEvents().map((event, index) => (
+                {Data.map((event, index) => (
                     <Col sm="6" lg="6" xl="3" key={index}>
                         <Passed
 

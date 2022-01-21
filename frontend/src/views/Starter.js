@@ -18,9 +18,6 @@ const useFetch = url => {
   return data;
 };
 
-
-
-
 const Starter = () => {
     const BlogData = useFetch("http://localhost:2080/api/events/");
     
@@ -36,7 +33,7 @@ const Starter = () => {
               id={blg.id}
               image={blg.image}
               title={blg.title}
-              subtitle={blg.date}
+              subtitle={blg.title}
               text="{'Interested: ' + 1}"
               color="primary"
             />
@@ -48,19 +45,3 @@ const Starter = () => {
 };
 
 export default Starter;
-
-
-{/* <Row>
-        {getEvents().then((data) => data.map((blg, index) => {
-          <Col sm="6" lg="6" xl="3" key={index}>
-            <Blog
-              id={blg.id}
-              image={bg4}
-              title={blg.title}
-              subtitle={blg.title}
-              text="{'Interested: ' + 1}"
-              color="primary"
-            />
-          </Col>
-        }))}
-      </Row> */}

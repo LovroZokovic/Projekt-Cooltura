@@ -30,11 +30,37 @@ const navigation = [
   },
 ];
 
+function logoutUser(){
+  console.log("LogoutUser");
+  sessionStorage.data = undefined;
+  console.log(sessionStorage.data)
+  window.location.replace("http://localhost:3000/#/Starter");
+}
+
+function checkLogin(){
+  if(sessionStorage.data === undefined){
+    return <a href="/#/login">Login</a>
+  }
+  else{
+    return <a href="/#/starter" onClick={logoutUser()}>Logout</a>
+  }
+}
+
+function checkSession(href){
+    if(sessionStorage.data === undefined){
+      return "/starter"
+    }
+    return href;
+}
+
 const Sidebar = () => {
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   let location = useLocation();
+  let state = {
+    mssg: ""
+  };
   return (
     <div>
       <div className="d-flex align-items-center"></div>
@@ -50,7 +76,7 @@ const Sidebar = () => {
           </Button>
         </div>
         <div className="bg-dark text-white p-2 opacity-75">
-          <a href="/#/login">Login</a>
+          {checkLogin()}
         </div>
       </div>
       <div className="p-3 mt-2">
@@ -58,7 +84,7 @@ const Sidebar = () => {
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
-                to={navi.href}
+                to={checkSession(navi.href)}
                 className={
                   location.pathname === navi.href
                     ? "active nav-link py-3"

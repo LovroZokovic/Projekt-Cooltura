@@ -12,15 +12,12 @@ import {
   } from "reactstrap";
 import Starter from "../Starter";
 import Login from "./Login";
+//import { getTokenId, getTokenUserName } from "../../routes/Token"
 
   const axios = require('axios')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(event.target.elements.email.value)
-    console.log(event.target.elements.username.value)
-    console.log(event.target.elements.password.value)
-    console.log(event.target.elements.select.value)
     axios.post('http://localhost:2080/api/auth/signup', {
       email: event.target.elements.email.value,
       username: event.target.elements.username.value,
@@ -33,6 +30,13 @@ import Login from "./Login";
   }
 
   const Registration = () => {
+
+    console.log(sessionStorage.data);
+    // console.log(getTokenUserName(localStorage.data));
+
+    if(sessionStorage.data !== undefined){
+      window.location.replace("http://localhost:3000/#/Starter");
+    }
 
     return (
       <Row>
