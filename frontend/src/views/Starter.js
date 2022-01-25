@@ -31,7 +31,7 @@ const Starter = () => {
           <Col sm="6" lg="6" xl="3" key={blg.id}>
             <Blog
               id={blg.id}
-              image={blg.image}
+              image={"http://localhost:2080/api/events/image/view/uploads/"+blg.id}
               title={blg.title}
               subtitle={blg.title}
               text="{'Interested: ' + 1}"

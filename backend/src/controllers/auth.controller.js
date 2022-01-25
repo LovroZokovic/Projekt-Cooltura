@@ -4,7 +4,6 @@ const Op = db.Sequelize.Op;
 const where = db.Sequelize.where;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt.config');
-const {v4:uuid} = require('uuid');
 
 async function findUserByUsername(username) {
     try {

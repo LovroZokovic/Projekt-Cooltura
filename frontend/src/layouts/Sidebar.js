@@ -34,7 +34,7 @@ function logoutUser(){
   console.log("LogoutUser");
   sessionStorage.data = undefined;
   console.log(sessionStorage.data)
-  window.location.replace("http://localhost:3000/#/Starter");
+  //window.location.replace("http://localhost:3000/#/starter");
 }
 
 function checkLogin(){

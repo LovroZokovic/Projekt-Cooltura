@@ -14,14 +14,15 @@ exports.create = (req, res) => {
     });
     return;
   }
-
+    
+  
   // Create an Event
   const event = {
     title: req.body.title,
     description: req.body.description,
     date: req.body.date,
     time: req.body.time,
-    image: req.body.image
+    image: JSON.stringify({ mime: req.file.mimetype, path: req.file.path }) 
   };
 
   // Save Event in the database
@@ -152,5 +153,13 @@ exports.findTop = function () {
     attributes: ["event_id"],
     limit: number
 })
-  return Event.findAll({where: { id: Topevents}});
+  return res.json(Event.findAll({where: { id: Topevents}}));
+};
+
+exports.get_image = async(req, res) => {
+  const id = req.params.id;
+  const event = await Event.findByPk(id);
+  const image = JSON.parse(event.image);
+  res.type(image.mime);
+  res.sendFile(image.path);
 };

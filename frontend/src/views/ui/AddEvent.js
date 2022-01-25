@@ -41,13 +41,13 @@ const AddEvent = () => {
         ) {
             console.log("svi podatci se trebaju unjeti")
         }
-        axios.post('http://localhost:2080/api/events/', {
-            title: state.title,
-            description: state.description,
-            date: state.date,
-            time: state.time,
-            Image: state.myImage
-        }).then((res) => {
+        const formData = new FormData();
+        formData.append("title", state.title);
+        formData.append("description",state.description);
+        formData.append("date",state.date);
+        formData.append("time",state.time);
+        formData.append("image",selectedImage);
+        axios.post('http://localhost:2080/api/events/', formData).then((res) => {
             setState({
                 title:'',
                 description:'',
@@ -72,7 +72,7 @@ const AddEvent = () => {
                       Add event
                   </CardTitle>
                   <CardBody>
-                      <Form onSubmit={onSubmit}>
+                      <Form onSubmit={onSubmit} enctype="multipart/form-data">
                           <FormGroup>
                               <Label for="title">The title of event</Label>
                               <Input

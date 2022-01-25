@@ -8,13 +8,25 @@ dotenv.config();
 const { logger, } = require('./middlewares/auth.middleware');
 const path = require('path');
 const { Sequelize, DataTypes, Model } = require('sequelize');
+const multer = require("multer");
+const upload = multer({ dest: 'uploads/' })
 
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'))
 //app.set('view engine', 'ejs')
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(__dirname + '/public'));
+app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.APP_PORT
 app.listen(PORT, () => {
@@ -26,6 +38,8 @@ app.use(cookieParser());
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
