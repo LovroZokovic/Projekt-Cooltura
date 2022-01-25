@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const db = require("../models");
 const Event = db.events;
+const Interest = db.interests;
 const Grade = db.grades;
 const Op = db.Sequelize.Op;
 var router = require("express").Router();
@@ -14,15 +15,15 @@ exports.create = (req, res) => {
     });
     return;
   }
-    
-  
+
+
   // Create an Event
   const event = {
     title: req.body.title,
     description: req.body.description,
     date: req.body.date,
     time: req.body.time,
-    image: JSON.stringify({ mime: req.file.mimetype, path: req.file.path }) 
+    image: JSON.stringify({ mime: req.file.mimetype, path: req.file.path })
   };
 
   // Save Event in the database
@@ -39,17 +40,31 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Events from the database.
-exports.findAll = (req, res) => {
-    Event.findAll()
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving events."
-        });
-      })    
+exports.findAll = async (req, res) => {
+  try {
+    const events = await Event.findAll();
+    const interests = await Interest.findAll({
+      where: {
+        event_id: events.map((event) => event.id),
+      },
+    });
+
+    const events_ = JSON.parse(JSON.stringify(events));
+    const interests_ = JSON.parse(JSON.stringify(interests));
+
+    const eventById = events_.reduce((acc, a) => ({ ...acc, [a.id]: 0 }), {});
+    for (const interest of interests_) {
+      eventById[interest.event_id] += 1;
+    }
+
+    res.send(events_.map((event) => ({ ...event, interested: eventById[event.id] })));
+  } catch (err) {
+    console.error("FIND ALL ERROR", err);
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving events."
+    });
+  }
 };
 
 // Find a single Event with an id
@@ -147,16 +162,16 @@ exports.findTop = function () {
   Topevents = Grade.findAll({
     // Add order conditions here....
     order: [
-        ['grade', 'DESC'],
-        ['event_id', 'ASC'],
+      ['grade', 'DESC'],
+      ['event_id', 'ASC'],
     ],
     attributes: ["event_id"],
     limit: number
-})
-  return res.json(Event.findAll({where: { id: Topevents}}));
+  })
+  return res.json(Event.findAll({ where: { id: Topevents } }));
 };
 
-exports.get_image = async(req, res) => {
+exports.get_image = async (req, res) => {
   const id = req.params.id;
   const event = await Event.findByPk(id);
   const image = JSON.parse(event.image);

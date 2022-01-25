@@ -7,7 +7,7 @@ var router = require("express").Router();
 // Create and Save a new Interest
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.user.id || !req.body.interest.id) {
+  if (!req.body.user_id || !req.body.event_id) {
     res.status(400).send({
       message: "Content can not be empty!"
     });

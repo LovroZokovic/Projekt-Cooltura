@@ -46,14 +46,6 @@ function parseJwt (token) {
   return JSON.parse(jsonPayload);
 };
 
-function checkLogin(){
-  if (sessionStorage.getItem("LoginToken")){
-    return <a href="/#/logout">Logout</a>
-  } else{
-    return <a href="/#/login">Login</a>
-  }
-}
-
 function checkSession(href){
     if(sessionStorage.data === undefined){
       return "/starter"

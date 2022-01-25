@@ -28,7 +28,8 @@ const Events = () => {
 
         <div>
             <Row>
-                        <BigCard
+                <BigCard
+                            eventId={id}
                             image={"http://localhost:2080/api/events/image/view/uploads/"+id}
                             title={event.title}
                             text={event.description}
