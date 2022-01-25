@@ -143,7 +143,7 @@ exports.findPastEvent = (req, res) => {
     
 };
 
-exports.findPastEvent = (req, res) => {
+exports.findFutureEvent = (req, res) => {
   const id = req.params.id;
   const today = new Date();
   User.findAll({where:{event_id: id, date: {
