@@ -7,42 +7,50 @@ const navigation = [
     title: "Events",
     href: "/starter",
     icon: "bi bi-calendar4-event",
+    requireAuth: false,
   },
   {
     title: "MyPassedEvents",
     href: "/passedEvents",
     icon: "bi bi-clock-history",
+    requireAuth: true,
   },
   {
     title: "MyFutureEvents",
     href: "/futureEvents",
     icon: "bi bi-chevron-double-right",
+    requireAuth: true,
   },
   {
     title: "AddEvent",
     href: "/addEvent",
     icon: "bi bi-plus-lg",
+    requireAuth: true,
+    requireRole: "Creator",
   },
   {
     title: "About",
     href: "/profile",
     icon: "bi bi-people",
+    requireAuth: true,
   },
 ];
 
-function logoutUser(){
-  console.log("LogoutUser");
-  sessionStorage.data = undefined;
-  console.log(sessionStorage.data)
-  //window.location.replace("http://localhost:3000/#/starter");
-}
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
 
 function checkLogin(){
-  if(sessionStorage.data === undefined){
+  if (sessionStorage.getItem("LoginToken")){
+    return <a href="/#/logout">Logout</a>
+  } else{
     return <a href="/#/login">Login</a>
-  }
-  else{
-    return <a href="/#/starter" onClick={logoutUser()}>Logout</a>
   }
 }
 
@@ -61,6 +69,8 @@ const Sidebar = () => {
   let state = {
     mssg: ""
   };
+  const token = sessionStorage.getItem("LoginToken");
+  const userData = token ? parseJwt(token) : null;
   return (
     <div>
       <div className="d-flex align-items-center"></div>
@@ -76,12 +86,29 @@ const Sidebar = () => {
           </Button>
         </div>
         <div className="bg-dark text-white p-2 opacity-75">
-          {checkLogin()}
+          {
+            userData 
+            ? (<a onClick={() => {
+              sessionStorage.removeItem("LoginToken");
+              window.location.href = '/';
+            }}>Logout</a>)
+            : (<a href="/#/login">Login</a>)
+          }
         </div>
       </div>
       <div className="p-3 mt-2">
         <Nav vertical className="sidebarNav">
-          {navigation.map((navi, index) => (
+          {navigation.filter((nav) => {
+            if (nav.requireAuth && !userData) {
+              return false;
+            }
+
+            if (nav.requireRole && nav.requireRole !== userData.role) {
+              return false;
+            }
+
+            return true;
+          }).map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
               <Link
                 to={checkSession(navi.href)}

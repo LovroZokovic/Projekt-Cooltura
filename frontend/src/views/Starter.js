@@ -34,7 +34,7 @@ const Starter = () => {
               image={"http://localhost:2080/api/events/image/view/uploads/"+blg.id}
               title={blg.title}
               subtitle={blg.title}
-              text="{'Interested: ' + 1}"
+              text={`Interested: ${blg.interested ?? 0}`}
               color="primary"
             />
           </Col>

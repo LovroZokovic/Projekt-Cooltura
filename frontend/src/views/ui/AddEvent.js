@@ -72,7 +72,7 @@ const AddEvent = () => {
                       Add event
                   </CardTitle>
                   <CardBody>
-                      <Form onSubmit={onSubmit} enctype="multipart/form-data">
+                      <Form onSubmit={onSubmit}>
                           <FormGroup>
                               <Label for="title">The title of event</Label>
                               <Input

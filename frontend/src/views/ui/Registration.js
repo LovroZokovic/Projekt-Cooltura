@@ -33,11 +33,11 @@ import Login from "./Login";
 
     console.log(sessionStorage.data);
     // console.log(getTokenUserName(localStorage.data));
-
+    /*
     if(sessionStorage.data !== undefined){
-      window.location.replace("http://localhost:3000/#/Starter");
+      window.location.replace("http://localhost:3000/#/");
     }
-
+    */
     return (
       <Row>
         <Col>

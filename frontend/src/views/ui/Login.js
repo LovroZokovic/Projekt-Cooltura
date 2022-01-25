@@ -12,23 +12,27 @@ import {
   } from "reactstrap";
 import Starter from "../Starter";
 
-  const axios = require('axios')
+  const axios = require('axios');
+  
+  function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+};
 
   function handleSubmit(event){
-    event.preventDefault()
-    var login;
-    console.log(event.target.elements.username.value)
-    console.log(event.target.elements.password.value)
+    event.preventDefault();
     axios.post('http://localhost:2080/api/auth/login', {
       username: event.target.elements.username.value,
       password: event.target.elements.password.value,
     }).then((res) => {
-      console.log(res.data.token);
-      login = res;
-      sessionStorage.data = res.data.token;
-      console.log(sessionStorage.data);
-      window.location.replace("http://localhost:3000/#/Starter");
-      
+      sessionStorage.setItem("LoginToken", res.data.token);
+      window.location.href = "/";
+      console.log(parseJwt(sessionStorage.getItem("LoginToken")));
     });
   }
 
