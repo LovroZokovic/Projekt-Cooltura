@@ -18,7 +18,7 @@ import Login from "./Login";
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('http://localhost:2080/api/auth/signup', {
+    axios.post('https://cooltura.tk/api/auth/signup', {
       email: event.target.elements.email.value,
       username: event.target.elements.username.value,
       password: event.target.elements.password.value,

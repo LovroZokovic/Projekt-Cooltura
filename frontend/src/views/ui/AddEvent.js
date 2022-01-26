@@ -8,7 +8,7 @@ import Starter from "../Starter";
     event.preventDefault()
     console.log(event.target.elements.title.value)
     console.log(event.target.elements.description.value)
-    axios.post('http://localhost:2080/api/events/', {
+    axios.post('https://cooltura.tk/api/events/', {
         title: event.target.elements.title.value,
         description: event.target.elements.description.value,
     }).then((response) => {
@@ -47,7 +47,7 @@ const AddEvent = () => {
         formData.append("date",state.date);
         formData.append("time",state.time);
         formData.append("image",selectedImage);
-        axios.post('http://localhost:2080/api/events/', formData).then((res) => {
+        axios.post('https://cooltura.tk/api/events/', formData).then((res) => {
             setState({
                 title:'',
                 description:'',

@@ -32,7 +32,7 @@ const PassedEvents = () => {
     const token = sessionStorage.getItem("LoginToken");
     const userData = token ? parseJwt(token) : null;
     var dataForServer = encodeURIComponent(sessionStorage.getItem("LoginToken"));
-    const BlogData = useFetch("http://localhost:2080/api/users/events/past/"+userData.id);
+    const BlogData = useFetch("https://cooltura.tk/api/users/events/past/"+userData.id);
     
     if (!BlogData) {
         return <div>Loading...</div>
@@ -44,7 +44,7 @@ const PassedEvents = () => {
           <Col sm="6" lg="6" xl="3" key={blg.id}>
             <Blog
               id={blg.id}
-              image={"http://localhost:2080/api/events/image/view/uploads/"+blg.id}
+              image={"https://cooltura.tk/api/events/image/view/uploads/"+blg.id}
               title={blg.title}
               subtitle={blg.title}
               text={`Interested: ${blg.interested ?? 0}`}
