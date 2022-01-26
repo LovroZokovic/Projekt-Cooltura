@@ -36,7 +36,7 @@ const AddEvent = () => {
         formData.append("date",state.date);
         formData.append("time",state.time);
         formData.append("image",selectedImage);
-        axios.post('http://cooltura.tk:2080/api/events/', formData).then((res) => {
+        axios.post('http://localhost:2080/api/events/', formData).then((res) => {
             setState({
                 title:'',
                 description:'',

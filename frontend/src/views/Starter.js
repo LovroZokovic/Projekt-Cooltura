@@ -19,7 +19,7 @@ const useFetch = url => {
 };
 
 const Starter = () => {
-    const BlogData = useFetch("http://cooltura.tk:2080/api/events/");
+    const BlogData = useFetch("http://localhost:2080/api/events/");
     
     if (!BlogData) {
         return <div>Loading...</div>
@@ -31,7 +31,7 @@ const Starter = () => {
           <Col sm="6" lg="6" xl="3" key={blg.id}>
             <Blog
               id={blg.id}
-              image={"http://cooltura.tk:2080/api/events/image/view/uploads/"+blg.id}
+              image={"http://localhost:2080/api/events/image/view/uploads/"+blg.id}
               title={blg.title}
               subtitle={blg.title}
               text={`Interested: ${blg.interested ?? 0}`}

@@ -27,7 +27,7 @@ import axios from "axios";
 
   function handleSubmit(event){
     event.preventDefault();
-    axios.post("http://cooltura.tk:2080/api/auth/login", {
+    axios.post("http://localhost:2080/api/auth/login", {
       username: event.target.elements.username.value,
       password: event.target.elements.password.value,
     }).then((res) => {
