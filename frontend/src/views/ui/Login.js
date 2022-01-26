@@ -11,9 +11,10 @@ import {
     Input,
   } from "reactstrap";
 import Starter from "../Starter";
+import {useParams} from "react-router-dom"
+import React,{useState,useEffect} from 'react'
+import axios from "axios";
 
-  const axios = require('axios');
-  
   function parseJwt (token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -26,7 +27,7 @@ import Starter from "../Starter";
 
   function handleSubmit(event){
     event.preventDefault();
-    axios.post('http://localhost:2080/api/auth/login', {
+    axios.post("http://localhost:2080/api/auth/login", {
       username: event.target.elements.username.value,
       password: event.target.elements.password.value,
     }).then((res) => {
