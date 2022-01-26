@@ -63,12 +63,13 @@ const Sidebar = () => {
   };
   const token = sessionStorage.getItem("LoginToken");
   const userData = token ? parseJwt(token) : null;
+  console.log(userData);
   return (
     <div>
       <div className="d-flex align-items-center"></div>
       <div>
         <div className="p-3 d-flex">
-          <img src={probg} alt="user" width="150"  />
+          <a href="/#/"><img src={probg} alt="user" width="150"  /></a>
           <Button
             color="white"
             className="ms-auto text-white d-lg-none"
@@ -77,10 +78,10 @@ const Sidebar = () => {
             <i className="bi bi-x"></i>
           </Button>
         </div>
-        <div className="bg-dark text-white p-2 opacity-75">
+        <div className="bg-dark text-light p-2 opacity-75">
           {
             userData 
-            ? (<a onClick={() => {
+            ? (<a href="/#/" onClick={() => {
               sessionStorage.removeItem("LoginToken");
               window.location.href = '/';
             }}>Logout</a>)

@@ -27,3 +27,28 @@
     }
   }
 }
+a{
+  color: #FFF;
+}
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+* {
+  font-family:'Montserrat Alternates', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bs-font-sans-serif: 'Montserrat Alternates', sans-serif !important;
+  --bs-body-font-family: 'Montserrat Alternates', sans-serif !important;
+}

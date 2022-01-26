@@ -3,29 +3,21 @@ import React, {useEffect, useState} from 'react'
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
 
+  return JSON.parse(jsonPayload);
+};
+ 
 
-const Profile = () => {
-  const [data, setData] = useState({
-    userName:'username',
-    email:'userEmail'
-  });
-
-  const {id} = useParams();
-  useEffect(() => {
-      axios.get(`http://localhost:2080/api/users/${id}`)
-        .then((res) => {
-          console.log(res);
-          setData({
-            userName:res.username,
-            email:res.email
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, [])
+  const token = sessionStorage.getItem("LoginToken");
+  const userData = token ? parseJwt(token) : null;
   
+  const Profile = () => {
   return (
     <div>
       <Row>
@@ -38,7 +30,7 @@ const Profile = () => {
               <h3>Username</h3>
             </CardHeader>
           <CardBody>
-            {data.userName}
+          {userData.username}
           </CardBody>
           </Card>
           <Card>
@@ -46,7 +38,7 @@ const Profile = () => {
               <h3>Email</h3>
             </CardHeader>
           <CardBody>
-            {data.email}
+      {userData.email}
           </CardBody>
           </Card>
           </Col>

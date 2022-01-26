@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+* {
+  font-family:'Montserrat Alternates', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bs-font-sans-serif: 'Montserrat Alternates', sans-serif !important;
+  --bs-body-font-family: 'Montserrat Alternates', sans-serif !important;
+}

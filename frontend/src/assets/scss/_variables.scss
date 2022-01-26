@@ -1,18 +1,18 @@
 /*******************/
 // Theme Fonts
 /********************/
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
-$font-family-sans-serif: "Poppins", sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
+$font-family: 'Montserrat Alternates', sans-serif !important;
 /*******************/
 // Theme Colors
 /********************/
 $primary: #1e88e5;
-$info: #26c6da;
+$info: #FF6506;
 $danger: #f62d51;
 $success: #39c449;
 $warning: #ffbc34;
-$dark: #343a40;
-$light: #eaf2fb;
+$dark: #00005F;
+$light: #ffffff;
 $secondary: #35363b;
 
 $theme-colors: (
@@ -47,7 +47,7 @@ $black: #000 !default;
 // Theme Text Contrast
 /********************/
 $min-contrast-ratio: 2;
-$font-weight-bold: 500 !default;
+$font-weight-bold: 400 !default;
 /*******************/
 // Theme body bg & text color
 /********************/

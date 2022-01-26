@@ -44,7 +44,7 @@ import Starter from "../Starter";
           <Card>
             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
               <i className="bi bi-bell me-2"> </i>
-              Login form. Don't have an account? Register <a href="/#/Registration">here</a>.
+              Login form. Don't have an account? Register <a style={{ color: '#FF6506'}} href="/#/Registration">here</a>.
             </CardTitle>
             <CardBody>
               <Form onSubmit={handleSubmit}>
