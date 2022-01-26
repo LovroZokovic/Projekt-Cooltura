@@ -4,18 +4,7 @@ import axios from 'axios'
 import {Link} from "react-router-dom";
 import Starter from "../Starter";
 
-/*const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log(event.target.elements.title.value)
-    console.log(event.target.elements.description.value)
-    axios.post('https://cooltura.tk/api/events/', {
-        title: event.target.elements.title.value,
-        description: event.target.elements.description.value,
-    }).then((response) => {
-        console.log(response);
-    });
-    return Starter;
-}*/
+
 
 
 const AddEvent = () => {
@@ -47,7 +36,7 @@ const AddEvent = () => {
         formData.append("date",state.date);
         formData.append("time",state.time);
         formData.append("image",selectedImage);
-        axios.post('https://cooltura.tk/api/events/', formData).then((res) => {
+        axios.post('https://cooltura.tk:2080/api/events/', formData).then((res) => {
             setState({
                 title:'',
                 description:'',

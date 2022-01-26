@@ -18,7 +18,7 @@ import Login from "./Login";
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('https://cooltura.tk/api/auth/signup', {
+    axios.post('https://cooltura.tk:2080/api/auth/signup', {
       email: event.target.elements.email.value,
       username: event.target.elements.username.value,
       password: event.target.elements.password.value,
@@ -32,12 +32,7 @@ import Login from "./Login";
   const Registration = () => {
 
     console.log(sessionStorage.data);
-    // console.log(getTokenUserName(localStorage.data));
-    /*
-    if(sessionStorage.data !== undefined){
-      window.location.replace("http://localhost:3000/#/");
-    }
-    */
+   
     return (
       <Row>
         <Col>
