@@ -47,9 +47,6 @@ function parseJwt (token) {
 };
 
 function checkSession(href){
-    if(sessionStorage.data === undefined){
-      return "/starter"
-    }
     return href;
 }
 
