@@ -26,7 +26,7 @@ const Comment = () => {
                                 <Input id="comment" name="comment" type="textarea" />
                             </FormGroup>
                             <Button style={{marginRight:"0.5rem"}}>Add</Button>
-                            <Link to="/passedEvents" className="btn btn-secondary">Cancel</Link>
+                            <Link to="/passedEvents" className="btn btn-dark">Cancel</Link>
                         </Form>
                     </CardBody>
                 </Card>

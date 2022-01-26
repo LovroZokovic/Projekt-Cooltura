@@ -1,64 +1,60 @@
-import axios from "axios";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import {Row, Col} from "reactstrap"
-import e1 from "../../assets/images/bg/zg_kaz.jpg";
-import e2 from "../../assets/images/bg/zg_muzej_iluzija.jpg";
-import e3 from "../../assets/images/bg/zg_muzej_mimara.jpg";
-import Passed from "../../components/dashboard/Passed";
+import { Col, Row } from "reactstrap";
+import Blog from "../../components/dashboard/Blog";
+import bg4 from "../../components/dashboard/uploadimg.png";
+import React,{useState,useEffect} from 'react'
 
-const Data = [
-    {
-        image: e1,
-        title: "Zagreb Theater Hamlet Drama",
-        date: new Date(2021, 2, 6).toDateString(),
-    },
-    {
-        image: e2,
-        title: "Museum of illusion opening night",
-        date: new Date(2021, 4, 12).toDateString(),
-    },
-    {
-        image: e3,
-        title: "Museum Mimara special event",
-        date: new Date(2021, 8, 25).toDateString(),
-    },
-];
+const axios = require('axios')
 
+
+const useFetch = url => {
+  const [data, setData] = useState(null);
+
+  async function fetchData() {
+    const response = await axios.get(url);
+    setData(response.data);
+  }
+
+  useEffect(() => {fetchData()},[url]);
+  return data;
+};
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  
+    return JSON.parse(jsonPayload);
+  };
 
 const PassedEvents = () => {
-
-    const[events, setEvents] = useState([]);
-
-    const [passedEvents, setPassedEvents] = useState([]);
-
-
-    const {id} = useParams();
-
-    // function Data{
-    //     axios.get(`http://localhost:2080/api/interests/user/${id}`).then(
-    //         (response) => setEvents(response.data)
-    //     ).catch((err) => {
-    //         console.log(err)
-    //     })
-    // }
-    return (
-        <div>
-            {/***Blog Cards***/}
-            <Row>
-                {Data.map((event, index) => (
-                    <Col sm="6" lg="6" xl="3" key={index}>
-                        <Passed
-
-                            image={event.image}
-                            title={event.title}
-                            subtitle={event.date}
-                        />
-                    </Col>
-                ))}
-            </Row>
-        </div>
-    );
-}
+    const token = sessionStorage.getItem("LoginToken");
+    const userData = token ? parseJwt(token) : null;
+    var dataForServer = encodeURIComponent(sessionStorage.getItem("LoginToken"));
+    const BlogData = useFetch("http://localhost:2080/api/users/events/past/"+userData.id);
+    
+    if (!BlogData) {
+        return <div>Loading...</div>
+    }
+  return (
+    <div>
+      <Row>
+        {BlogData.map((blg) => (
+          <Col sm="6" lg="6" xl="3" key={blg.id}>
+            <Blog
+              id={blg.id}
+              image={"http://localhost:2080/api/events/image/view/uploads/"+blg.id}
+              title={blg.title}
+              subtitle={blg.title}
+              text={`Interested: ${blg.interested ?? 0}`}
+              color="primary"
+            />
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+};
 
 export default PassedEvents;

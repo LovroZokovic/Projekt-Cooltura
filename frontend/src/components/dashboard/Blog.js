@@ -16,7 +16,7 @@ const Blog = (props) => {
         <CardTitle tag="h5">{props.title}</CardTitle>
         <CardSubtitle>{props.subtitle}</CardSubtitle>
         <CardText className="mt-3">{props.text}</CardText>
-        <Link to={'/api/events/' + props.id} className="btn btn-secondary">Read more</Link>
+        <Link to={'/api/events/' + props.id} className="btn btn-dark">Read more</Link>
       </CardBody>
     </Card>
   );

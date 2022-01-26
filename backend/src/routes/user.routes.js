@@ -10,10 +10,10 @@ module.exports = app => {
     router.get("/event/:id", users.findEvent);    
 
     // Retrieve users past interested for an event
-    router.get("/event/past/:id", users.findPastEvent);    
+    router.get("/events/past/:id", users.findPastEvents);    
 
      // Retrieve users future interested for an event
-     router.get("/event/future/:id", users.findFutureEvent);  
+     router.get("/events/future/:id", users.findFutureEvents);  
 
     // Retrieve a single user with id
     router.get("/:id", users.findOne);

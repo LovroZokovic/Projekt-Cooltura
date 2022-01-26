@@ -14,7 +14,7 @@ const Passed = (props) => {
             <CardBody className="p-4">
                 <CardTitle tag="h5">{props.title}</CardTitle>
                 <CardSubtitle>{props.subtitle}</CardSubtitle>
-                <Link to="/comment" className="btn btn-primary">Comment and rate</Link>
+                <Link to="/comment" className="btn btn-info">Comment and rate</Link>
             </CardBody>
         </Card>
     );

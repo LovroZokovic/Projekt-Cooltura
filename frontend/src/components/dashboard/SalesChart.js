@@ -27,7 +27,7 @@ const SalesChart = () => {
         borderRadius: 2,
       },
     },
-    colors: ["#0d6efd", "#009efb", "#6771dc"],
+    colors: ["#FF6506", "#009efb", "#6771dc"],
     xaxis: {
       categories: [
         "Jan",

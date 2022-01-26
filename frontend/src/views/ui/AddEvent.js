@@ -130,7 +130,7 @@ const AddEvent = () => {
                               />
                           </FormGroup>
                           <Button type="submit" style={{marginRight: "0.5rem"}}>Add</Button>
-                          <Link to="/starter" className="btn btn-secondary">Cancel</Link>
+                          <Link to="/starter" className="btn btn-dark">Cancel</Link>
                       </Form>
                   </CardBody>
               </Card>
