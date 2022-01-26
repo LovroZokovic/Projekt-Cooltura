@@ -29,7 +29,7 @@ const BigCard = (props) => {
             return;
         }
 
-        axios.post("https://cooltura.tk/api/interests/", {
+        axios.post("http://cooltura.tk:2080/api/interests/", {
             user_id: userData.id,
             event_id: props.eventId,
         });

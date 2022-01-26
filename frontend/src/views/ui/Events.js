@@ -20,7 +20,7 @@ const useFetch = url => {
 
 const Events = () => {
     const { id } = useParams()
-    const event = useFetch("https://cooltura.tk:2080/api/events/"+id)
+    const event = useFetch("http://cooltura.tk:2080/api/events/"+id)
     if (!event) {
         return <div>Loading...</div>
     }
@@ -30,7 +30,7 @@ const Events = () => {
             <Row>
                 <BigCard
                             eventId={id}
-                            image={"https://cooltura.tk:2080/api/events/image/view/uploads/"+id}
+                            image={"http://cooltura.tk:2080/api/events/image/view/uploads/"+id}
                             title={event.title}
                             text={event.description}
                             color={"primary"}
